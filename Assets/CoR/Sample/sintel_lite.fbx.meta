@@ -1,0 +1,1452 @@
+fileFormatVersion: 2
+guid: cd7f0314200b13d4ab71228d892bf5b9
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: DEF-finger_index.01.L.01
+  - first:
+      1: 100002
+    second: DEF-finger_index.01.L.02X
+  - first:
+      1: 100004
+    second: DEF-finger_index.01.R.01
+  - first:
+      1: 100006
+    second: DEF-finger_index.01.R.02X
+  - first:
+      1: 100008
+    second: DEF-finger_index.02.L
+  - first:
+      1: 100010
+    second: DEF-finger_index.02.R
+  - first:
+      1: 100012
+    second: DEF-finger_index.03.L
+  - first:
+      1: 100014
+    second: DEF-finger_index.03.R
+  - first:
+      1: 100016
+    second: DEF-finger_middle.01.L.01
+  - first:
+      1: 100018
+    second: DEF-finger_middle.01.L.02X
+  - first:
+      1: 100020
+    second: DEF-finger_middle.01.R.01
+  - first:
+      1: 100022
+    second: DEF-finger_middle.01.R.02X
+  - first:
+      1: 100024
+    second: DEF-finger_middle.02.L
+  - first:
+      1: 100026
+    second: DEF-finger_middle.02.R
+  - first:
+      1: 100028
+    second: DEF-finger_middle.03.L
+  - first:
+      1: 100030
+    second: DEF-finger_middle.03.R
+  - first:
+      1: 100032
+    second: DEF-finger_pinky.01.L.01
+  - first:
+      1: 100034
+    second: DEF-finger_pinky.01.L.02X
+  - first:
+      1: 100036
+    second: DEF-finger_pinky.01.R.01
+  - first:
+      1: 100038
+    second: DEF-finger_pinky.01.R.02X
+  - first:
+      1: 100040
+    second: DEF-finger_pinky.02.L
+  - first:
+      1: 100042
+    second: DEF-finger_pinky.02.R
+  - first:
+      1: 100044
+    second: DEF-finger_pinky.03.L
+  - first:
+      1: 100046
+    second: DEF-finger_pinky.03.R
+  - first:
+      1: 100048
+    second: DEF-finger_ring.01.L.01
+  - first:
+      1: 100050
+    second: DEF-finger_ring.01.L.02X
+  - first:
+      1: 100052
+    second: DEF-finger_ring.01.R.01
+  - first:
+      1: 100054
+    second: DEF-finger_ring.01.R.02X
+  - first:
+      1: 100056
+    second: DEF-finger_ring.02.L
+  - first:
+      1: 100058
+    second: DEF-finger_ring.02.R
+  - first:
+      1: 100060
+    second: DEF-finger_ring.03.L
+  - first:
+      1: 100062
+    second: DEF-finger_ring.03.R
+  - first:
+      1: 100064
+    second: DEF-foot.L
+  - first:
+      1: 100066
+    second: DEF-foot.R
+  - first:
+      1: 100068
+    second: DEF-forearm.L.01
+  - first:
+      1: 100070
+    second: DEF-forearm.L.02
+  - first:
+      1: 100072
+    second: DEF-forearm.R.01
+  - first:
+      1: 100074
+    second: DEF-forearm.R.02
+  - first:
+      1: 100076
+    second: DEF-hand.L
+  - first:
+      1: 100078
+    second: DEF-hand.R
+  - first:
+      1: 100080
+    second: DEF-head
+  - first:
+      1: 100082
+    second: DEF-lat.L.01
+  - first:
+      1: 100084
+    second: DEF-lat.L.02
+  - first:
+      1: 100086
+    second: DEF-lat.R.01
+  - first:
+      1: 100088
+    second: DEF-lat.R.02
+  - first:
+      1: 100090
+    second: DEF-neck
+  - first:
+      1: 100092
+    second: DEF-neck.02X
+  - first:
+      1: 100094
+    second: DEF-palm.01.L
+  - first:
+      1: 100096
+    second: DEF-palm.01.R
+  - first:
+      1: 100098
+    second: DEF-palm.02.L
+  - first:
+      1: 100100
+    second: DEF-palm.02.R
+  - first:
+      1: 100102
+    second: DEF-palm.03.L
+  - first:
+      1: 100104
+    second: DEF-palm.03.R
+  - first:
+      1: 100106
+    second: DEF-palm.04.L
+  - first:
+      1: 100108
+    second: DEF-palm.04.R
+  - first:
+      1: 100110
+    second: DEF-pec.L.01
+  - first:
+      1: 100112
+    second: DEF-pec.L.02
+  - first:
+      1: 100114
+    second: DEF-pec.R.01
+  - first:
+      1: 100116
+    second: DEF-pec.R.02
+  - first:
+      1: 100118
+    second: DEF-shin.L.01
+  - first:
+      1: 100120
+    second: DEF-shin.L.02
+  - first:
+      1: 100122
+    second: DEF-shin.R.01
+  - first:
+      1: 100124
+    second: DEF-shin.R.02
+  - first:
+      1: 100126
+    second: DEF-shoulder.L
+  - first:
+      1: 100128
+    second: DEF-shoulder.R
+  - first:
+      1: 100130
+    second: DEF-spine.01
+  - first:
+      1: 100132
+    second: DEF-spine.02
+  - first:
+      1: 100134
+    second: DEF-spine.03
+  - first:
+      1: 100136
+    second: DEF-spine.04
+  - first:
+      1: 100138
+    second: DEF-thigh.L.01
+  - first:
+      1: 100140
+    second: DEF-thigh.L.02
+  - first:
+      1: 100142
+    second: DEF-thigh.R.01
+  - first:
+      1: 100144
+    second: DEF-thigh.R.02
+  - first:
+      1: 100146
+    second: DEF-thumb.01.L.01
+  - first:
+      1: 100148
+    second: DEF-thumb.01.L.02
+  - first:
+      1: 100150
+    second: DEF-thumb.01.R.01
+  - first:
+      1: 100152
+    second: DEF-thumb.01.R.02X
+  - first:
+      1: 100154
+    second: DEF-thumb.02.L
+  - first:
+      1: 100156
+    second: DEF-thumb.02.R
+  - first:
+      1: 100158
+    second: DEF-thumb.03.L
+  - first:
+      1: 100160
+    second: DEF-thumb.03.R
+  - first:
+      1: 100162
+    second: DEF-toe.L
+  - first:
+      1: 100164
+    second: DEF-toe.R
+  - first:
+      1: 100166
+    second: DEF-upper_arm.L.01
+  - first:
+      1: 100168
+    second: DEF-upper_arm.L.02
+  - first:
+      1: 100170
+    second: DEF-upper_arm.R.01
+  - first:
+      1: 100172
+    second: DEF-upper_arm.R.02
+  - first:
+      1: 100174
+    second: EMT-mapeyeteardrop
+  - first:
+      1: 100176
+    second: GEO-body
+  - first:
+      1: 100178
+    second: GEO-body_mouth
+  - first:
+      1: 100180
+    second: GEO-boots
+  - first:
+      1: 100182
+    second: GEO-cornea
+  - first:
+      1: 100184
+    second: GEO-emit_brows
+  - first:
+      1: 100186
+    second: GEO-emit_lash_btm
+  - first:
+      1: 100188
+    second: GEO-emit_lash_top
+  - first:
+      1: 100190
+    second: GEO-eyeballs
+  - first:
+      1: 100192
+    second: GEO-gloves
+  - first:
+      1: 100194
+    second: GEO-pants
+  - first:
+      1: 100196
+    second: GEO-shirt
+  - first:
+      1: 100198
+    second: GEO-shirt_hooks
+  - first:
+      1: 100200
+    second: GEO-tearline
+  - first:
+      1: 100202
+    second: rig
+  - first:
+      1: 100204
+    second: //RootNode
+  - first:
+      1: 100206
+    second: GEO-hd
+  - first:
+      1: 100208
+    second: GEO-deformation_cage
+  - first:
+      1: 100210
+    second: VIS-foot_ik.L
+  - first:
+      1: 100212
+    second: VIS-foot_ik.R
+  - first:
+      1: 100214
+    second: VIS-forearm.L_ik
+  - first:
+      1: 100216
+    second: VIS-forearm.R_ik
+  - first:
+      1: 100218
+    second: VIS-hand.L_ik
+  - first:
+      1: 100220
+    second: VIS-hand.R_ik
+  - first:
+      1: 100222
+    second: VIS-knee_target.L
+  - first:
+      1: 100224
+    second: VIS-knee_target.R
+  - first:
+      4: 400000
+    second: DEF-finger_index.01.L.01
+  - first:
+      4: 400002
+    second: DEF-finger_index.01.L.02X
+  - first:
+      4: 400004
+    second: DEF-finger_index.01.R.01
+  - first:
+      4: 400006
+    second: DEF-finger_index.01.R.02X
+  - first:
+      4: 400008
+    second: DEF-finger_index.02.L
+  - first:
+      4: 400010
+    second: DEF-finger_index.02.R
+  - first:
+      4: 400012
+    second: DEF-finger_index.03.L
+  - first:
+      4: 400014
+    second: DEF-finger_index.03.R
+  - first:
+      4: 400016
+    second: DEF-finger_middle.01.L.01
+  - first:
+      4: 400018
+    second: DEF-finger_middle.01.L.02X
+  - first:
+      4: 400020
+    second: DEF-finger_middle.01.R.01
+  - first:
+      4: 400022
+    second: DEF-finger_middle.01.R.02X
+  - first:
+      4: 400024
+    second: DEF-finger_middle.02.L
+  - first:
+      4: 400026
+    second: DEF-finger_middle.02.R
+  - first:
+      4: 400028
+    second: DEF-finger_middle.03.L
+  - first:
+      4: 400030
+    second: DEF-finger_middle.03.R
+  - first:
+      4: 400032
+    second: DEF-finger_pinky.01.L.01
+  - first:
+      4: 400034
+    second: DEF-finger_pinky.01.L.02X
+  - first:
+      4: 400036
+    second: DEF-finger_pinky.01.R.01
+  - first:
+      4: 400038
+    second: DEF-finger_pinky.01.R.02X
+  - first:
+      4: 400040
+    second: DEF-finger_pinky.02.L
+  - first:
+      4: 400042
+    second: DEF-finger_pinky.02.R
+  - first:
+      4: 400044
+    second: DEF-finger_pinky.03.L
+  - first:
+      4: 400046
+    second: DEF-finger_pinky.03.R
+  - first:
+      4: 400048
+    second: DEF-finger_ring.01.L.01
+  - first:
+      4: 400050
+    second: DEF-finger_ring.01.L.02X
+  - first:
+      4: 400052
+    second: DEF-finger_ring.01.R.01
+  - first:
+      4: 400054
+    second: DEF-finger_ring.01.R.02X
+  - first:
+      4: 400056
+    second: DEF-finger_ring.02.L
+  - first:
+      4: 400058
+    second: DEF-finger_ring.02.R
+  - first:
+      4: 400060
+    second: DEF-finger_ring.03.L
+  - first:
+      4: 400062
+    second: DEF-finger_ring.03.R
+  - first:
+      4: 400064
+    second: DEF-foot.L
+  - first:
+      4: 400066
+    second: DEF-foot.R
+  - first:
+      4: 400068
+    second: DEF-forearm.L.01
+  - first:
+      4: 400070
+    second: DEF-forearm.L.02
+  - first:
+      4: 400072
+    second: DEF-forearm.R.01
+  - first:
+      4: 400074
+    second: DEF-forearm.R.02
+  - first:
+      4: 400076
+    second: DEF-hand.L
+  - first:
+      4: 400078
+    second: DEF-hand.R
+  - first:
+      4: 400080
+    second: DEF-head
+  - first:
+      4: 400082
+    second: DEF-lat.L.01
+  - first:
+      4: 400084
+    second: DEF-lat.L.02
+  - first:
+      4: 400086
+    second: DEF-lat.R.01
+  - first:
+      4: 400088
+    second: DEF-lat.R.02
+  - first:
+      4: 400090
+    second: DEF-neck
+  - first:
+      4: 400092
+    second: DEF-neck.02X
+  - first:
+      4: 400094
+    second: DEF-palm.01.L
+  - first:
+      4: 400096
+    second: DEF-palm.01.R
+  - first:
+      4: 400098
+    second: DEF-palm.02.L
+  - first:
+      4: 400100
+    second: DEF-palm.02.R
+  - first:
+      4: 400102
+    second: DEF-palm.03.L
+  - first:
+      4: 400104
+    second: DEF-palm.03.R
+  - first:
+      4: 400106
+    second: DEF-palm.04.L
+  - first:
+      4: 400108
+    second: DEF-palm.04.R
+  - first:
+      4: 400110
+    second: DEF-pec.L.01
+  - first:
+      4: 400112
+    second: DEF-pec.L.02
+  - first:
+      4: 400114
+    second: DEF-pec.R.01
+  - first:
+      4: 400116
+    second: DEF-pec.R.02
+  - first:
+      4: 400118
+    second: DEF-shin.L.01
+  - first:
+      4: 400120
+    second: DEF-shin.L.02
+  - first:
+      4: 400122
+    second: DEF-shin.R.01
+  - first:
+      4: 400124
+    second: DEF-shin.R.02
+  - first:
+      4: 400126
+    second: DEF-shoulder.L
+  - first:
+      4: 400128
+    second: DEF-shoulder.R
+  - first:
+      4: 400130
+    second: DEF-spine.01
+  - first:
+      4: 400132
+    second: DEF-spine.02
+  - first:
+      4: 400134
+    second: DEF-spine.03
+  - first:
+      4: 400136
+    second: DEF-spine.04
+  - first:
+      4: 400138
+    second: DEF-thigh.L.01
+  - first:
+      4: 400140
+    second: DEF-thigh.L.02
+  - first:
+      4: 400142
+    second: DEF-thigh.R.01
+  - first:
+      4: 400144
+    second: DEF-thigh.R.02
+  - first:
+      4: 400146
+    second: DEF-thumb.01.L.01
+  - first:
+      4: 400148
+    second: DEF-thumb.01.L.02
+  - first:
+      4: 400150
+    second: DEF-thumb.01.R.01
+  - first:
+      4: 400152
+    second: DEF-thumb.01.R.02X
+  - first:
+      4: 400154
+    second: DEF-thumb.02.L
+  - first:
+      4: 400156
+    second: DEF-thumb.02.R
+  - first:
+      4: 400158
+    second: DEF-thumb.03.L
+  - first:
+      4: 400160
+    second: DEF-thumb.03.R
+  - first:
+      4: 400162
+    second: DEF-toe.L
+  - first:
+      4: 400164
+    second: DEF-toe.R
+  - first:
+      4: 400166
+    second: DEF-upper_arm.L.01
+  - first:
+      4: 400168
+    second: DEF-upper_arm.L.02
+  - first:
+      4: 400170
+    second: DEF-upper_arm.R.01
+  - first:
+      4: 400172
+    second: DEF-upper_arm.R.02
+  - first:
+      4: 400174
+    second: EMT-mapeyeteardrop
+  - first:
+      4: 400176
+    second: GEO-body
+  - first:
+      4: 400178
+    second: GEO-body_mouth
+  - first:
+      4: 400180
+    second: GEO-boots
+  - first:
+      4: 400182
+    second: GEO-cornea
+  - first:
+      4: 400184
+    second: GEO-emit_brows
+  - first:
+      4: 400186
+    second: GEO-emit_lash_btm
+  - first:
+      4: 400188
+    second: GEO-emit_lash_top
+  - first:
+      4: 400190
+    second: GEO-eyeballs
+  - first:
+      4: 400192
+    second: GEO-gloves
+  - first:
+      4: 400194
+    second: GEO-pants
+  - first:
+      4: 400196
+    second: GEO-shirt
+  - first:
+      4: 400198
+    second: GEO-shirt_hooks
+  - first:
+      4: 400200
+    second: GEO-tearline
+  - first:
+      4: 400202
+    second: rig
+  - first:
+      4: 400204
+    second: //RootNode
+  - first:
+      4: 400206
+    second: GEO-hd
+  - first:
+      4: 400208
+    second: GEO-deformation_cage
+  - first:
+      4: 400210
+    second: VIS-foot_ik.L
+  - first:
+      4: 400212
+    second: VIS-foot_ik.R
+  - first:
+      4: 400214
+    second: VIS-forearm.L_ik
+  - first:
+      4: 400216
+    second: VIS-forearm.R_ik
+  - first:
+      4: 400218
+    second: VIS-hand.L_ik
+  - first:
+      4: 400220
+    second: VIS-hand.R_ik
+  - first:
+      4: 400222
+    second: VIS-knee_target.L
+  - first:
+      4: 400224
+    second: VIS-knee_target.R
+  - first:
+      21: 2100000
+    second: dull_metal1
+  - first:
+      21: 2100002
+    second: inside_mouth
+  - first:
+      21: 2100004
+    second: inside_mouth.teeth
+  - first:
+      21: 2100006
+    second: cornea_eye
+  - first:
+      21: 2100008
+    second: Sintel_Skin1_layer
+  - first:
+      21: 2100010
+    second: leatherBoots
+  - first:
+      21: 2100012
+    second: sintel_eyebrows
+  - first:
+      21: 2100014
+    second: eyelash_lo
+  - first:
+      21: 2100016
+    second: eyelash_up
+  - first:
+      21: 2100018
+    second: sintel_eye
+  - first:
+      21: 2100020
+    second: leatherGloves
+  - first:
+      21: 2100022
+    second: leatherPants
+  - first:
+      21: 2100024
+    second: sweater_straps
+  - first:
+      21: 2100026
+    second: grey_edges
+  - first:
+      21: 2100028
+    second: sweater_main
+  - first:
+      21: 2100030
+    second: sintel_tearline
+  - first:
+      21: 2100032
+    second: mdef_cage_transp
+  - first:
+      23: 2300000
+    second: GEO-shirt_hooks
+  - first:
+      33: 3300000
+    second: GEO-shirt_hooks
+  - first:
+      43: 4300000
+    second: GEO-shirt_hooks
+  - first:
+      43: 4300002
+    second: GEO-body_mouth
+  - first:
+      43: 4300004
+    second: GEO-cornea
+  - first:
+      43: 4300006
+    second: GEO-body
+  - first:
+      43: 4300008
+    second: GEO-boots
+  - first:
+      43: 4300010
+    second: GEO-emit_brows
+  - first:
+      43: 4300012
+    second: GEO-emit_lash_btm
+  - first:
+      43: 4300014
+    second: GEO-emit_lash_top
+  - first:
+      43: 4300016
+    second: GEO-eyeballs
+  - first:
+      43: 4300018
+    second: GEO-gloves
+  - first:
+      43: 4300020
+    second: GEO-pants
+  - first:
+      43: 4300022
+    second: GEO-shirt
+  - first:
+      43: 4300024
+    second: GEO-tearline
+  - first:
+      43: 4300026
+    second: GEO-hd
+  - first:
+      43: 4300028
+    second: GEO-deformation_cage
+  - first:
+      74: 7400000
+    second: rig|test_pose
+  - first:
+      74: 7400002
+    second: GEO-shirt_hooks|test_pose
+  - first:
+      74: 7400004
+    second: rig|Action.006
+  - first:
+      74: 7400006
+    second: rig|Action.006_L_Lib
+  - first:
+      74: 7400008
+    second: GEO-body|Action.006
+  - first:
+      74: 7400010
+    second: GEO-body|test_pose
+  - first:
+      74: 7400012
+    second: GEO-body|Action.006_L_Lib
+  - first:
+      74: 7400014
+    second: GEO-shirt|Action.006
+  - first:
+      74: 7400016
+    second: GEO-shirt|test_pose
+  - first:
+      74: 7400018
+    second: GEO-shirt|Action.006_L_Lib
+  - first:
+      74: 7400020
+    second: GEO-shirt_hooks|Action.006
+  - first:
+      74: 7400022
+    second: GEO-shirt_hooks|Action.006_L_Lib
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: GEO-body
+  - first:
+      137: 13700002
+    second: GEO-body_mouth
+  - first:
+      137: 13700004
+    second: GEO-boots
+  - first:
+      137: 13700006
+    second: GEO-cornea
+  - first:
+      137: 13700008
+    second: GEO-emit_brows
+  - first:
+      137: 13700010
+    second: GEO-emit_lash_btm
+  - first:
+      137: 13700012
+    second: GEO-emit_lash_top
+  - first:
+      137: 13700014
+    second: GEO-eyeballs
+  - first:
+      137: 13700016
+    second: GEO-gloves
+  - first:
+      137: 13700018
+    second: GEO-pants
+  - first:
+      137: 13700020
+    second: GEO-shirt
+  - first:
+      137: 13700022
+    second: GEO-tearline
+  - first:
+      137: 13700024
+    second: GEO-shirt_hooks
+  - first:
+      137: 13700026
+    second: GEO-hd
+  - first:
+      137: 13700028
+    second: GEO-deformation_cage
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sintel_Skin1_layer
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grey_edges
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leatherBoots
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leatherGloves
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leatherPants
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweater_main
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweater_straps
+    second: {fileID: 2100000, guid: cbc4342e41c7abf4b8585da257f1fa41, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: sintel_lite(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: GEO-body
+      parentName: sintel_lite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: GEO-boots
+      parentName: sintel_lite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: GEO-eyeballs
+      parentName: sintel_lite(Clone)
+      position: {x: -0.034451574, y: 1.5282757, z: 0.059761036}
+      rotation: {x: -0.7043326, y: -0.061971195, z: -0.062250737, w: 0.70441467}
+      scale: {x: 28.913889, y: 28.913885, z: 28.913864}
+    - name: GEO-gloves
+      parentName: sintel_lite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: GEO-pants
+      parentName: sintel_lite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 89.18069, y: 89.18069, z: 89.18069}
+    - name: GEO-shirt
+      parentName: sintel_lite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: rig
+      parentName: sintel_lite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: DEF-spine.01
+      parentName: rig
+      position: {x: 0.000000054728684, y: 0.000351337, z: 0.008633058}
+      rotation: {x: 0.11607801, y: -0.1161036, z: 0.6975092, w: 0.6975147}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: DEF-spine.02
+      parentName: DEF-spine.01
+      position: {x: 1.8626474e-11, y: -3.3821832e-14, z: 0.0014836775}
+      rotation: {x: 0.0000008251627, y: 0.14353547, z: 0.000006318185, w: 0.9896452}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: DEF-spine.03
+      parentName: DEF-spine.02
+      position: {x: 3.2410947e-14, y: -8.775203e-15, z: 0.0014456017}
+      rotation: {x: 0.0000019931654, y: 0.23223998, z: 0.000007711504, w: 0.9726585}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: DEF-spine.04
+      parentName: DEF-spine.03
+      position: {x: 2.798965e-11, y: -5.456968e-14, z: 0.00080351596}
+      rotation: {x: 0.00000005874782, y: 0.03504061, z: 0.0000011180515, w: 0.9993859}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: DEF-neck
+      parentName: DEF-spine.04
+      position: {x: -0.0005266251, y: 3.6884898e-10, z: 0.0014216054}
+      rotation: {x: 0.00000550832, y: -0.43537164, z: -0.000012274762, w: 0.9002508}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: DEF-head
+      parentName: DEF-neck
+      position: {x: 0.000060754315, y: 6.5347554e-11, z: 0.0010498783}
+      rotation: {x: 0.00000030885994, y: 0.20070773, z: 0.0000047436956, w: 0.97965115}
+      scale: {x: 1, y: 1, z: 0.9999998}
+    - name: DEF-neck.02X
+      parentName: DEF-neck
+      position: {x: -8.570772e-10, y: -1.847411e-14, z: 0.00051074976}
+      rotation: {x: 0.000000037061405, y: 0.056079615, z: 0.0000017339959, w: 0.9984263}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: DEF-shoulder.L
+      parentName: DEF-spine.04
+      position: {x: -0.0009429006, y: 0.00012544017, z: 0.000792719}
+      rotation: {x: -0.49838772, y: 0.3444711, z: 0.3606255, w: 0.7091535}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: DEF-upper_arm.L.01
+      parentName: DEF-shoulder.L
+      position: {x: 0.00026619824, y: -0.00010620863, z: 0.0013761752}
+      rotation: {x: -0.1782663, y: -0.047120664, z: -0.6898299, w: 0.7000968}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: DEF-forearm.L.01
+      parentName: DEF-upper_arm.L.01
+      position: {x: 0.000000002750312, y: 0.00000006451228, z: 0.0021848725}
+      rotation: {x: 0.026476191, y: 0.0032237766, z: 0.000008513221, w: 0.9996443}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+    - name: DEF-forearm.L.02
+      parentName: DEF-forearm.L.01
+      position: {x: -4.6566126e-11, y: 5.1877574e-10, z: 0.001014607}
+      rotation: {x: 0.00000029346754, y: -0.000000022244421, z: -0.000000619606, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-hand.L
+      parentName: DEF-forearm.L.01
+      position: {x: 0.0000000019441357, y: 0.00000005613663, z: 0.0020292432}
+      rotation: {x: -0.08847598, y: -0.039429706, z: -0.70179224, w: 0.7057655}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: DEF-finger_index.01.L.01
+      parentName: DEF-hand.L
+      position: {x: 0.00006621763, y: -0.00039031834, z: 0.0010367247}
+      rotation: {x: 0.10530384, y: -0.022140773, z: 0.043970212, w: 0.9932208}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-finger_index.01.L.02X
+      parentName: DEF-finger_index.01.L.01
+      position: {x: 5.465699e-10, y: 8.381903e-11, z: 0.00022706208}
+      rotation: {x: -0.000000093597926, y: 0.00000055134296, z: 0.0000029960647, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-finger_index.02.L
+      parentName: DEF-finger_index.01.L.01
+      position: {x: 2.0256266e-10, y: 6.3329936e-10, z: 0.00045412264}
+      rotation: {x: -0.0038622306, y: 0.001881554, z: 0.00007993802, w: 0.99999076}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: DEF-finger_index.03.L
+      parentName: DEF-finger_index.02.L
+      position: {x: 2.6775523e-11, y: 4.4703483e-10, z: 0.00025809667}
+      rotation: {x: 0.0041428353, y: 0.0012473857, z: -0.00007400638, w: 0.99999064}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: DEF-finger_middle.01.L.01
+      parentName: DEF-hand.L
+      position: {x: 0.000083468505, y: -0.00010134097, z: 0.001087012}
+      rotation: {x: 0.0240416, y: -0.042099092, z: 0.03808067, w: 0.99809796}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: DEF-finger_middle.01.L.02X
+      parentName: DEF-finger_middle.01.L.01
+      position: {x: -4.901085e-10, y: -9.313225e-11, z: 0.00025358555}
+      rotation: {x: 0.000000024680046, y: 0.00000026379706, z: -0.0000005037291, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: DEF-finger_middle.02.L
+      parentName: DEF-finger_middle.01.L.01
+      position: {x: -8.8126395e-10, y: -5.9604643e-10, z: 0.0005071716}
+      rotation: {x: -0.0018335315, y: 0.00076068455, z: 0.000010470298, w: 0.99999803}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: DEF-finger_middle.03.L
+      parentName: DEF-finger_middle.02.L
+      position: {x: 5.3085386e-10, y: -7.4505804e-11, z: 0.0002873108}
+      rotation: {x: -0.0000011511146, y: 0.000008906063, z: -0.000016254375, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-finger_pinky.01.L.01
+      parentName: DEF-hand.L
+      position: {x: -0.000009632333, y: 0.00039736493, z: 0.0009806246}
+      rotation: {x: -0.02091748, y: 0.0065112514, z: 0.09727743, w: 0.99501616}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: DEF-finger_pinky.01.L.02X
+      parentName: DEF-finger_pinky.01.L.01
+      position: {x: -0.0000000011920929, y: 0, z: 0.00019943767}
+      rotation: {x: -0.00000041723254, y: -0.00000071525574, z: 0.00000094622374, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: DEF-finger_pinky.02.L
+      parentName: DEF-finger_pinky.01.L.01
+      position: {x: -2.4214386e-10, y: 0.0000000016391277, z: 0.00039887402}
+      rotation: {x: 0.000007434748, y: 0.0000060200696, z: 0.0000013615937, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-finger_pinky.03.L
+      parentName: DEF-finger_pinky.02.L
+      position: {x: -0.0000000055879354, y: 0.000000007972121, z: 0.00020584252}
+      rotation: {x: 0.0000004954636, y: 0.00000010058283, z: -0.000002793968, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+    - name: DEF-finger_ring.01.L.01
+      parentName: DEF-hand.L
+      position: {x: 0.00003194604, y: 0.00016910848, z: 0.0010640931}
+      rotation: {x: -0.017906524, y: -0.01028681, z: 0.04146999, w: 0.99892634}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: DEF-finger_ring.01.L.02X
+      parentName: DEF-finger_ring.01.L.01
+      position: {x: -6.61239e-10, y: -1.4901161e-10, z: 0.00023166904}
+      rotation: {x: -0.00000015296975, y: -0.00000028661455, z: -0.0000018980355, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: DEF-finger_ring.02.L
+      parentName: DEF-finger_ring.01.L.01
+      position: {x: 0.00000000229571, y: 1.11758706e-10, z: 0.00046333665}
+      rotation: {x: -0.0018126544, y: -0.0040800944, z: 0.000011398573, w: 0.99999005}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: DEF-finger_ring.03.L
+      parentName: DEF-finger_ring.02.L
+      position: {x: -0.000000001238659, y: 4.842877e-10, z: 0.00026404115}
+      rotation: {x: 0.0011536753, y: -0.0106744645, z: -0.000034973644, w: 0.99994236}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-palm.01.L
+      parentName: DEF-hand.L
+      position: {x: 0.00008608791, y: -0.0002206953, z: 0.00027190498}
+      rotation: {x: 0.10909123, y: -0.010823787, z: -0.01760816, w: 0.99381685}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: DEF-palm.02.L
+      parentName: DEF-hand.L
+      position: {x: 0.00009485505, y: -0.00005261055, z: 0.0002935375}
+      rotation: {x: 0.030370291, y: -0.008311402, z: 0.037575897, w: 0.9987976}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: DEF-palm.03.L
+      parentName: DEF-hand.L
+      position: {x: 0.000072453484, y: 0.00010495853, z: 0.00029100146}
+      rotation: {x: -0.04226246, y: -0.02458392, z: 0.0363233, w: 0.9981434}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-palm.04.L
+      parentName: DEF-hand.L
+      position: {x: 0.000037391812, y: 0.00026238474, z: 0.0002790318}
+      rotation: {x: -0.09662169, y: -0.026991786, z: 0.06245779, w: 0.9929928}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
+    - name: DEF-thumb.01.L.01
+      parentName: DEF-hand.L
+      position: {x: -0.000029634564, y: -0.00032798646, z: 0.00016731891}
+      rotation: {x: 0.34739712, y: 0.22312476, z: -0.5869788, w: 0.69640976}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-thumb.02.L
+      parentName: DEF-thumb.01.L.01
+      position: {x: 0.000000002530869, y: -0.0000000022212043, z: 0.00056430965}
+      rotation: {x: 0.0058681658, y: -0.039805394, z: -0.009282275, w: 0.9991472}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-thumb.03.L
+      parentName: DEF-thumb.02.L
+      position: {x: 0.0000000010058283, y: 7.636845e-10, z: 0.00027054426}
+      rotation: {x: -0.012814444, y: -0.11160522, z: 0.0044960855, w: 0.99365985}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-thumb.01.L.02
+      parentName: DEF-hand.L
+      position: {x: -0.00014362844, y: -0.00050782383, z: 0.00035245618}
+      rotation: {x: 0.40564385, y: 0.085886285, z: -0.6358219, w: 0.65100473}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: DEF-upper_arm.L.02
+      parentName: DEF-upper_arm.L.01
+      position: {x: -1.2805685e-11, y: -0.0000000013128192, z: 0.0010924411}
+      rotation: {x: -0.000000027168426, y: -0.000000018554601, z: 0.0000005756592, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: DEF-shoulder.R
+      parentName: DEF-spine.04
+      position: {x: -0.0009429062, y: -0.00012542779, z: 0.00079270336}
+      rotation: {x: 0.4984111, y: 0.3444755, z: -0.36062017, w: 0.70913756}
+      scale: {x: 0.9999999, y: 1, z: 0.9999999}
+    - name: DEF-upper_arm.R.01
+      parentName: DEF-shoulder.R
+      position: {x: 0.00026619347, y: 0.00010620783, z: 0.0013761651}
+      rotation: {x: 0.17827424, y: -0.047114223, z: 0.6898274, w: 0.7000977}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: DEF-forearm.R.01
+      parentName: DEF-upper_arm.R.01
+      position: {x: 0.0000000033027026, y: -0.000000023064331, z: 0.0021849086}
+      rotation: {x: -0.026473776, y: 0.0032267496, z: -0.00001025293, w: 0.99964434}
+      scale: {x: 0.9999998, y: 1, z: 1}
+    - name: DEF-forearm.R.02
+      parentName: DEF-forearm.R.01
+      position: {x: 6.984919e-12, y: 6.648406e-11, z: 0.0010146267}
+      rotation: {x: 0.00000015536625, y: -0.0000000018262654, z: 0.00000031106174, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-hand.R
+      parentName: DEF-forearm.R.01
+      position: {x: -0.0000000013085082, y: -0.000000029070579, z: 0.0020292536}
+      rotation: {x: 0.088476755, y: -0.039431494, z: 0.7017944, w: 0.7057633}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: DEF-finger_index.01.R.01
+      parentName: DEF-hand.R
+      position: {x: 0.000066214714, y: 0.00039031717, z: 0.0010367022}
+      rotation: {x: -0.10529784, y: -0.022137322, z: -0.043974247, w: 0.9932213}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
+    - name: DEF-finger_index.01.R.02X
+      parentName: DEF-finger_index.01.R.01
+      position: {x: -2.3283064e-10, y: 4.6566126e-11, z: 0.00022706058}
+      rotation: {x: -0.000000103842474, y: 0.0000005778857, z: -0.0000029718506, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: DEF-finger_index.02.R
+      parentName: DEF-finger_index.01.R.01
+      position: {x: -0.0000000026542692, y: 9.49949e-10, z: 0.0004541212}
+      rotation: {x: 0.0038626632, y: 0.0018803664, z: -0.00008145981, w: 0.9999908}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: DEF-finger_index.03.R
+      parentName: DEF-finger_index.02.R
+      position: {x: -5.611218e-10, y: 1.8626451e-11, z: 0.00025809335}
+      rotation: {x: -0.0041410653, y: 0.0012472247, z: 0.00007348764, w: 0.99999064}
+      scale: {x: 0.9999998, y: 0.99999994, z: 0.99999976}
+    - name: DEF-finger_middle.01.R.01
+      parentName: DEF-hand.R
+      position: {x: 0.000083466024, y: 0.00010133639, z: 0.0010869952}
+      rotation: {x: -0.024036538, y: -0.042099666, z: -0.038084097, w: 0.99809796}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: DEF-finger_middle.01.R.02X
+      parentName: DEF-finger_middle.01.R.01
+      position: {x: -0.0000000011350494, y: 0, z: 0.00025358397}
+      rotation: {x: -0.0000000023283067, y: 0.0000005168259, z: 0.0000008699718, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: DEF-finger_middle.02.R
+      parentName: DEF-finger_middle.01.R.01
+      position: {x: 9.255018e-10, y: 3.1664968e-10, z: 0.00050717266}
+      rotation: {x: 0.0018352978, y: 0.0007599311, z: -0.000011319085, w: 0.99999803}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: DEF-finger_middle.03.R
+      parentName: DEF-finger_middle.02.R
+      position: {x: -3.3760442e-11, y: 5.5879353e-11, z: 0.0002873125}
+      rotation: {x: -0.000000009313226, y: 0.00000025640475, z: 0.000016466482, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: DEF-finger_pinky.01.R.01
+      parentName: DEF-hand.R
+      position: {x: -0.000009639941, y: -0.00039737302, z: 0.0009806163}
+      rotation: {x: 0.020918963, y: 0.0065109814, z: -0.097276576, w: 0.9950163}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: DEF-finger_pinky.01.R.02X
+      parentName: DEF-finger_pinky.01.R.01
+      position: {x: -0.0000000018067657, y: -7.4505804e-11, z: 0.00019943787}
+      rotation: {x: 0.00000017695129, y: -0.00000037252897, z: -0.0000006686896, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: DEF-finger_pinky.02.R
+      parentName: DEF-finger_pinky.01.R.01
+      position: {x: -0.0000000014528632, y: -9.685754e-10, z: 0.0003988765}
+      rotation: {x: 0.0000010346994, y: 0.0000010952352, z: -0.0000010374933, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: DEF-finger_pinky.03.R
+      parentName: DEF-finger_pinky.02.R
+      position: {x: 0.0000000021792947, y: -7.4505804e-11, z: 0.00020584387}
+      rotation: {x: -0.00000005960464, y: -0.000000014901161, z: 0.000002587214, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: DEF-finger_ring.01.R.01
+      parentName: DEF-hand.R
+      position: {x: 0.00003193946, y: -0.0001691145, z: 0.0010640789}
+      rotation: {x: 0.017905917, y: -0.010288258, z: -0.041470785, w: 0.99892634}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: DEF-finger_ring.01.R.02X
+      parentName: DEF-finger_ring.01.R.01
+      position: {x: 6.1001626e-10, y: 3.7252902e-11, z: 0.00023166943}
+      rotation: {x: -0.000000003259629, y: 0.0000000128056845, z: 0.000002256129, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-finger_ring.02.R
+      parentName: DEF-finger_ring.01.R.01
+      position: {x: 0.0000000018533319, y: -7.8231094e-10, z: 0.00046333883}
+      rotation: {x: 0.0018169486, y: -0.0040807636, z: -0.000012315936, w: 0.99999005}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: DEF-finger_ring.03.R
+      parentName: DEF-finger_ring.02.R
+      position: {x: -0.0000000010803342, y: 1.4901161e-10, z: 0.000264043}
+      rotation: {x: -0.0011482522, y: -0.010674273, z: 0.000034811124, w: 0.99994236}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999998}
+    - name: DEF-palm.01.R
+      parentName: DEF-hand.R
+      position: {x: 0.00008608279, y: 0.00022069692, z: 0.0002718863}
+      rotation: {x: -0.10908934, y: -0.010823696, z: 0.01760336, w: 0.99381715}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-palm.02.R
+      parentName: DEF-hand.R
+      position: {x: 0.00009485111, y: 0.00005261062, z: 0.0002935201}
+      rotation: {x: -0.03036735, y: -0.008311499, z: -0.03757962, w: 0.99879754}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-palm.03.R
+      parentName: DEF-hand.R
+      position: {x: 0.00007244635, y: -0.00010495962, z: 0.00029098368}
+      rotation: {x: 0.04226528, y: -0.024582883, z: -0.03632443, w: 0.9981432}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: DEF-palm.04.R
+      parentName: DEF-hand.R
+      position: {x: 0.00003738457, y: -0.00026238748, z: 0.0002790169}
+      rotation: {x: 0.09662504, y: -0.026991906, z: -0.062458515, w: 0.99299246}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: DEF-thumb.01.R.01
+      parentName: DEF-hand.R
+      position: {x: -0.000029637748, y: 0.00032799153, z: 0.00016729925}
+      rotation: {x: -0.3474006, y: 0.22311684, z: 0.5869729, w: 0.69641554}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: DEF-thumb.01.R.02X
+      parentName: DEF-thumb.01.R.01
+      position: {x: 7.916242e-11, y: -4.656613e-10, z: 0.00028215413}
+      rotation: {x: -0.00000076740986, y: -0.0000002086163, z: -0.0000049192463, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: DEF-thumb.02.R
+      parentName: DEF-thumb.01.R.01
+      position: {x: 0.0000000047078355, y: -0.0000000016065314, z: 0.000564312}
+      rotation: {x: -0.005864366, y: -0.03979825, z: 0.009288481, w: 0.99914736}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: DEF-thumb.03.R
+      parentName: DEF-thumb.02.R
+      position: {x: -7.4505804e-11, y: -0.0000000010337681, z: 0.000270543}
+      rotation: {x: 0.012812677, y: -0.11160943, z: -0.0044963188, w: 0.9936594}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
+    - name: DEF-upper_arm.R.02
+      parentName: DEF-upper_arm.R.01
+      position: {x: 0.000000006557675, y: -0.0000000035458834, z: 0.0010924555}
+      rotation: {x: 0.000000115310065, y: -0.000000023578654, z: 0.00000026394991, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: DEF-thigh.L.01
+      parentName: DEF-spine.01
+      position: {x: -0.00047184713, y: 0.0008312395, z: 0.000864411}
+      rotation: {x: -0.000007427196, y: 0.9846722, z: -0.0000011462148, w: -0.17441526}
+      scale: {x: 0.9999978, y: 1, z: 0.99999994}
+    - name: DEF-shin.L.01
+      parentName: DEF-thigh.L.01
+      position: {x: 0.0000000087908445, y: 0.000000017545055, z: 0.004087719}
+      rotation: {x: 0.0019538756, y: -0.07877919, z: 0.00015740094, w: 0.9968902}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.99999994}
+    - name: DEF-foot.L
+      parentName: DEF-shin.L.01
+      position: {x: 5.4577124e-11, y: 9.783707e-10, z: 0.0040245843}
+      rotation: {x: 0.4910921, y: 0.03787526, z: 0.8700067, w: -0.021963127}
+      scale: {x: 1, y: 0.99999994, z: 0.99999976}
+    - name: DEF-toe.L
+      parentName: DEF-foot.L
+      position: {x: 5.101901e-10, y: -7.1246176e-10, z: 0.0012286782}
+      rotation: {x: 0.013996068, y: -0.331974, z: 0.031638995, w: 0.9426539}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: DEF-shin.L.02
+      parentName: DEF-shin.L.01
+      position: {x: 7.179217e-12, y: 8.740244e-12, z: 0.0020122936}
+      rotation: {x: 0.0000000062882464, y: -0.000000018631603, z: -0.0000000025088536, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-thigh.L.02
+      parentName: DEF-thigh.L.01
+      position: {x: -3.8090774e-11, y: 1.0104109e-10, z: 0.0020438686}
+      rotation: {x: -0.0000000031788159, y: 0.0000000051222626, z: -5.939995e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-thigh.R.01
+      parentName: DEF-spine.01
+      position: {x: -0.00047184728, y: -0.0008312377, z: 0.0008643939}
+      rotation: {x: -0.000005674634, y: 0.98467225, z: 0.000008964281, w: -0.174415}
+      scale: {x: 0.9999975, y: 1, z: 1}
+    - name: DEF-shin.R.01
+      parentName: DEF-thigh.R.01
+      position: {x: 0.000000016958, y: -0.00000007349469, z: 0.004087729}
+      rotation: {x: -0.0019486673, y: -0.0787808, z: -0.0001524542, w: 0.99689007}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: DEF-foot.R
+      parentName: DEF-shin.R.01
+      position: {x: -7.801837e-10, y: 4.6873994e-10, z: 0.004024582}
+      rotation: {x: 0.49109432, y: -0.037860427, z: 0.87000537, w: 0.021990702}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: DEF-toe.R
+      parentName: DEF-foot.R
+      position: {x: 3.259629e-11, y: -5.122274e-11, z: 0.0012286701}
+      rotation: {x: -0.014004802, y: -0.33197582, z: -0.03161725, w: 0.94265383}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: DEF-shin.R.02
+      parentName: DEF-shin.R.01
+      position: {x: -2.695418e-11, y: 5.617039e-11, z: 0.0020122977}
+      rotation: {x: 0.0000000020190782, y: -0.000000007481957, z: 0.000000015965515, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: DEF-thigh.R.02
+      parentName: DEF-thigh.R.01
+      position: {x: 0.000000011342122, y: -0.00000005085511, z: 0.0020438693}
+      rotation: {x: 0.000000015413265, y: 0.000000004190951, z: -1.7043256e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EMT-mapeyeteardrop
+      parentName: rig
+      position: {x: -0.000000005909874, y: -0.0013714647, z: 0.0005018829}
+      rotation: {x: -0.7070473, y: -0.0000012456617, z: 0.000001427932, w: 0.70716625}
+      scale: {x: 0.08703064, y: 0.08703067, z: 0.08703067}
+    - name: GEO-shirt_hooks
+      parentName: rig
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

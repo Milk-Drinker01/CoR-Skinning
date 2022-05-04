@@ -1,0 +1,153 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+#include "HLSLSupport.cginc"
+
+struct BWeightCS
+{
+	 int boneIndex0, boneIndex1, boneIndex2, boneIndex3;
+	 float boneWeight0, boneWeight1, boneWeight2, boneWeight3;
+	 int count;
+};
+
+struct TWeightCS
+{
+	 int boneIndex0, boneIndex1, boneIndex2, boneIndex3, boneIndex4, boneIndex5, boneIndex6, boneIndex7, boneIndex8, boneIndex9, boneIndex10, boneIndex11;
+	 float boneWeight0, boneWeight1, boneWeight2, boneWeight3, boneWeight4, boneWeight5, boneWeight6, boneWeight7, boneWeight8, boneWeight9, boneWeight10, boneWeight11;
+	 int count;
+	 float area;
+	 float3 center;
+};
+
+int GetBoneIndex(BWeightCS w, int index)
+{
+	if (index >= w.count) return -1;
+	switch (index)
+	{
+		case 0: return w.boneIndex0;
+		case 1: return w.boneIndex1;
+		case 2: return w.boneIndex2;
+		case 3: return w.boneIndex3;
+		default: return 0;
+	} 
+}
+
+float GetBoneIndexWeight(BWeightCS w, int boneIndex)
+{
+	if (w.boneIndex0 == boneIndex) return w.boneWeight0;
+	if (w.boneIndex1 == boneIndex) return w.boneWeight1;
+	if (w.boneIndex2 == boneIndex) return w.boneWeight2;
+	if (w.boneIndex3 == boneIndex) return w.boneWeight3;
+	return 0; // not found, valid
+}
+
+int GetBoneIndex(TWeightCS w, int index)
+{
+	if (index >= w.count) return -1;
+	switch (index)
+	{
+		case 0: return w.boneIndex0;
+		case 1: return w.boneIndex1;
+		case 2: return w.boneIndex2;
+		case 3: return w.boneIndex3;
+		case 4: return w.boneIndex4;
+		case 5: return w.boneIndex5;
+		case 6: return w.boneIndex6;
+		case 7: return w.boneIndex7;
+		case 8: return w.boneIndex8;
+		case 9: return w.boneIndex9;
+		case 10: return w.boneIndex10;
+		case 11: return w.boneIndex11;
+		default: return 0;
+	}
+}
+
+float GetBoneIndexWeight(TWeightCS w, int boneIndex)
+{
+	// extra: return on boneIndex >= count
+	if (w.boneIndex0 == boneIndex) return w.boneWeight0;
+	if (w.boneIndex1 == boneIndex) return w.boneWeight1;
+	if (w.boneIndex2 == boneIndex) return w.boneWeight2;
+	if (w.boneIndex3 == boneIndex) return w.boneWeight3;
+	if (w.boneIndex4 == boneIndex) return w.boneWeight4;
+	if (w.boneIndex5 == boneIndex) return w.boneWeight5;
+	if (w.boneIndex6 == boneIndex) return w.boneWeight6;
+	if (w.boneIndex7 == boneIndex) return w.boneWeight7;
+	if (w.boneIndex8 == boneIndex) return w.boneWeight8;
+	if (w.boneIndex9 == boneIndex) return w.boneWeight9;
+	if (w.boneIndex10 == boneIndex) return w.boneWeight10;
+	if (w.boneIndex11 == boneIndex) return w.boneWeight11;
+	return 0; 
+}
+
+float ComputeSimilarity(BWeightCS wp, const TWeightCS wv, float sqrSigma)
+{
+	float similarity = 0.0f; 
+	for (int jI = 0; jI < wp.count; jI++)
+	{
+		int j = GetBoneIndex(wp, jI);
+		float wvj = GetBoneIndexWeight(wv, j);
+		if (wvj == 0)
+		{
+			continue;
+		}
+		float wpj = GetBoneIndexWeight(wp, j);
+		for (int kI = 0; kI < wv.count; kI++)
+		{
+			int k = GetBoneIndex(wv, kI);
+			if (k <= j)
+			{
+				continue;
+			}
+			float wvk = GetBoneIndexWeight(wv, k);
+			float wpk = GetBoneIndexWeight(wp, k);
+			if (wpk == 0)
+			{
+				continue;
+			}
+			similarity += wpj * wpk * wvj * wvk * exp(-(pow(wpj * wvk - wpk * wvj, 2)) / sqrSigma);
+		}
+	}
+	return similarity;
+}
+
+int twCount;
+float sigma;
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 threadID : SV_DispatchThreadID,
+	SAMPLER_UNIFORM StructuredBuffer<BWeightCS> bwBuffer,
+	SAMPLER_UNIFORM StructuredBuffer<TWeightCS> twBuffer,
+	SAMPLER_UNIFORM RWStructuredBuffer<float3> pStarBuffer
+)
+{
+	const uint t = threadID.x;
+	const BWeightCS bw = bwBuffer[t]; // for this vert index
+	
+	float3 top = float3(0,0,0);
+	float baseValue = 0.0f;
+	float similarity = 0.0f; 
+
+	int triIndex = 0;
+	float sqrSigma = sigma * sigma;
+
+	for (int i = 0; i< twCount; i++) {
+		const TWeightCS tw = twBuffer[i]; // for each tri
+		similarity = ComputeSimilarity(bw, tw, sqrSigma) * tw.area;
+		top += tw.center * similarity;
+		baseValue += similarity;
+	}
+
+	if (baseValue > 0)
+	{
+		pStarBuffer[t] = top / baseValue;
+	}
+	else
+	{
+		// prevents NaN, has the same affect as LBS
+		pStarBuffer[t] = float3(0, 0, 0);
+	}
+
+}
+
+

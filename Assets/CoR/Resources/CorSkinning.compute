@@ -1,0 +1,170 @@
+﻿ 
+#pragma kernel CSMain
+
+#include "HLSLSupport.cginc"
+
+uint vertCount;
+float g_corWeight;
+
+struct BoneWeightCS
+{
+	float weight0, weight1, weight2, weight3;
+	int index0, index1, index2, index3;
+};
+
+// https://github.com/g-truc/glm/issues/205
+float3 quatMul(const float4 q, const float3 v) {
+	float3 uv = float3(0, 0, 0);
+	float3 uuv = float3(0,0,0);
+	float3 QuatVector = float3(q.x, q.y, q.z);
+	uv = cross(QuatVector, v);
+	uuv = cross(QuatVector, uv);
+	uv *= (2 * q.w);
+	uuv *= 2;
+	return v + uv + uuv;
+}
+
+float4 inverseBaseRotation;
+StructuredBuffer<float4> bindPoseRotations;
+StructuredBuffer<float4> qBuffer;
+
+float4x4 worldToLocalMatrix;
+StructuredBuffer<float4x4> bindBuffer;
+StructuredBuffer<float4x4> boneBuffer;
+
+RWStructuredBuffer<float3> verticesOutBuffer;
+RWStructuredBuffer<float3> normalsOutBuffer;
+RWStructuredBuffer<float4> tangentsOutBuffer;
+
+
+StructuredBuffer<float> corWeight; // per vert
+StructuredBuffer<float3> verticesBuffer;
+StructuredBuffer<float3> normalsBuffer;
+StructuredBuffer<float4> tangentsBuffer;
+StructuredBuffer<BoneWeightCS> boneWeightBuffer;
+StructuredBuffer<float3> tBuffer;
+
+
+//this should be just a lil faster than using mul()
+float4x4 multiplyMatrix4x3(float4x4 lhs, float4x4 rhs)
+{
+    float4x4 res;
+    res[0].x = 0;
+    res[0].x = lhs[0].x * rhs[0].x + lhs[0].y * rhs[1].x + lhs[0].z * rhs[2].x;
+    res[0].y = lhs[0].x * rhs[0].y + lhs[0].y * rhs[1].y + lhs[0].z * rhs[2].y;
+    res[0].z = lhs[0].x * rhs[0].z + lhs[0].y * rhs[1].z + lhs[0].z * rhs[2].z;
+    res[0].w = lhs[0].x * rhs[0].w + lhs[0].y * rhs[1].w + lhs[0].z * rhs[2].w + lhs[0].w;
+
+    res[1].x = lhs[1].x * rhs[0].x + lhs[1].y * rhs[1].x + lhs[1].z * rhs[2].x;
+    res[1].y = lhs[1].x * rhs[0].y + lhs[1].y * rhs[1].y + lhs[1].z * rhs[2].y;
+    res[1].z = lhs[1].x * rhs[0].z + lhs[1].y * rhs[1].z + lhs[1].z * rhs[2].z;
+    res[1].w = lhs[1].x * rhs[0].w + lhs[1].y * rhs[1].w + lhs[1].z * rhs[2].w + lhs[1].w;
+
+    res[2].x = lhs[2].x * rhs[0].x + lhs[2].y * rhs[1].x + lhs[2].z * rhs[2].x;
+    res[2].y = lhs[2].x * rhs[0].y + lhs[2].y * rhs[1].y + lhs[2].z * rhs[2].y;
+    res[2].z = lhs[2].x * rhs[0].z + lhs[2].y * rhs[1].z + lhs[2].z * rhs[2].z;
+    res[2].w = lhs[2].x * rhs[0].w + lhs[2].y * rhs[1].w + lhs[2].z * rhs[2].w + lhs[2].w;
+
+    res[3].x = 0;
+    res[3].y = 0;
+    res[3].z = 0;
+    res[3].w = 1;
+
+    return res;
+}
+//from the unity CS reference quaternion class
+float4 mulQxQ(float4 lhs, float4 rhs)
+{
+    return float4(
+                    lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
+                    lhs.w * rhs.y + lhs.y * rhs.w + lhs.z * rhs.x - lhs.x * rhs.z,
+                    lhs.w * rhs.z + lhs.z * rhs.w + lhs.x * rhs.y - lhs.y * rhs.x,
+                    lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z
+                );
+}
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 threadID : SV_DispatchThreadID)
+{
+	const uint t = threadID.x;
+	
+	if (t >= vertCount)
+	{
+		return;
+	} 
+
+	const float3 v = verticesBuffer[t];
+	const float4 t4 = float4(tBuffer[t], 1); 
+	const float4 v4 = float4(v, 1);
+
+	float4 qOut =  float4(0, 0, 0, 0); 
+	//float4 b =  float4(0, 0, 0, 0); 
+	//float3 tOut =  float3(0, 0, 0);
+	BoneWeightCS bw = boneWeightBuffer[t];
+
+	// LBS on normals and tangents (close enough)
+	float3 linearOut = float3(0, 0, 0);
+	const float4 n4 = float4(normalsBuffer[t], 0);
+	//float3 nOut = float3(0, 0, 0);
+	float4 tang = tangentsBuffer[t];
+	//float3 tangOut = float3(0, 0, 0);
+	
+	
+	
+    float4x4 multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index0], bindBuffer[bw.index0]));
+    linearOut += bw.weight0 * mul(multMatrix, v4).xyz;
+
+    float3 tOut = bw.weight0 * mul(multMatrix, t4).xyz;
+    float4 b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index0], bindPoseRotations[bw.index0])), bw.weight0);
+    if (dot(qOut, b) >= 0)
+        qOut += b;
+    else
+        qOut -= b;
+
+    float3 nOut = bw.weight0 * mul(multMatrix, n4).xyz;
+    float3 tangOut = bw.weight0 * mul((float3x3) multMatrix, tang).xyz;
+	//if (bw.weight0 > 0) {
+        
+ //   }
+	if (bw.weight1 > 0) {
+        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index1], bindBuffer[bw.index1]));
+        linearOut += bw.weight1 * mul(multMatrix, v4).xyz;
+
+        tOut += bw.weight1 * mul(multMatrix, t4).xyz;
+        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index1], bindPoseRotations[bw.index1])), bw.weight1);
+		if (dot(qOut, b) >= 0) qOut += b; else qOut -= b;
+
+        nOut += bw.weight1 * mul(multMatrix, n4).xyz;
+        tangOut += bw.weight1 * mul((float3x3) multMatrix, tang).xyz;
+    }
+	if (bw.weight2 > 0) {
+        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index2], bindBuffer[bw.index2]));
+        linearOut += bw.weight2 * mul(multMatrix, v4).xyz;
+
+        tOut += bw.weight2 * mul(multMatrix, t4).xyz;
+        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index2], bindPoseRotations[bw.index2])), bw.weight2);
+		if (dot(qOut, b) >= 0) qOut += b; else qOut -= b;
+
+        nOut += bw.weight2 * mul(multMatrix, n4).xyz;
+        tangOut += bw.weight2 * mul((float3x3) multMatrix, tang).xyz;
+    }
+	if (bw.weight3 > 0) {
+        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index3], bindBuffer[bw.index3]));
+        linearOut += bw.weight3 * mul(multMatrix, v4).xyz;
+
+        tOut += bw.weight3 * mul(multMatrix, t4).xyz;
+        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index3], bindPoseRotations[bw.index3])), bw.weight3);
+		if (dot(qOut, b) >= 0) qOut += b; else qOut -= b;
+
+        nOut += bw.weight3 * mul(multMatrix, n4).xyz;
+        tangOut += bw.weight3 * mul((float3x3) multMatrix, tang).xyz;
+    }
+
+	qOut = normalize(qOut);
+
+	float3 corOut = quatMul(qOut, v - tBuffer[t]) + tOut;
+	float blendedWeight = g_corWeight * corWeight[t];
+	verticesOutBuffer[t] = lerp(linearOut, corOut, blendedWeight);
+	normalsOutBuffer[t] = nOut;
+	tangentsOutBuffer[t] = float4(tangOut.xyz, tang.w);
+}
