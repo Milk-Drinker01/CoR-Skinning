@@ -1,2 +1,2 @@
 # CoR-Skinning
- Optimized Center of Rotation skinning using disneys skinning algorithm
+ Optimized Center of Rotation skinning in unity
