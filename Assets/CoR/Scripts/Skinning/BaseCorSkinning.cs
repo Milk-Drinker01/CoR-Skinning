@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst;
 using UnityEngine;
 
 namespace CoR
@@ -54,6 +55,7 @@ namespace CoR
 
         }
 
+        [BurstCompile(CompileSynchronously = true)]
         public void Skin(float globalCorWeight)
         {
             this.globalCorWeight = globalCorWeight;

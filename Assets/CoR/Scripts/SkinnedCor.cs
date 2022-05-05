@@ -114,13 +114,13 @@ namespace CoR
         {
             skinning.Skin(corAsset.globalCorWeight);
 
-            return;
-            Graphics.DrawProcedural(
-            mat,
-            new Bounds(transform.position, transform.lossyScale * 5),
-            MeshTopology.Triangles, vertexCount, 1,
-            null, null,
-            ShadowCastingMode.Off, true, gameObject.layer);
+            //return;
+            //Graphics.DrawProcedural(
+            //mat,
+            //new Bounds(transform.position, transform.lossyScale * 5),
+            //MeshTopology.Triangles, vertexCount, 1,
+            //null, null,
+            //ShadowCastingMode.Off, true, gameObject.layer);
         }
 
         void OnDestroy()

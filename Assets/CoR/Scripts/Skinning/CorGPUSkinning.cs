@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Jobs;
 //using UnityEngine.Profiling;
 
 namespace CoR
@@ -42,7 +48,7 @@ namespace CoR
             tangentsBuffer.SetData(tang);
             boneWeightBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(BoneWeight)));
             boneWeightBuffer.SetData(w);
-            boneBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(Matrix4x4)));
+            boneBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(Matrix4x4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
             bindPoseBuffer = new ComputeBuffer(corAsset.bindposes.Length, Marshal.SizeOf(typeof(Matrix4x4)));
             bindPoseBuffer.SetData(corAsset.bindposes);
             Quaternion[] bindRotations = new Quaternion[corAsset.bindposes.Length];
@@ -56,7 +62,7 @@ namespace CoR
             normalsOutBuffer = new ComputeBuffer(n.Length, Marshal.SizeOf(typeof(Vector3)));
             tangentsOutBuffer = new ComputeBuffer(tang.Length, Marshal.SizeOf(typeof(Vector4)));
             tBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector3)));
-            qBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector4)));
+            qBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
             tBuffer.SetData(t);
 
             corWeightBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(float)));
@@ -67,40 +73,71 @@ namespace CoR
             material.SetBuffer("verticesOutBuffer", verticesOutBuffer);
             material.SetBuffer("normalsOutBuffer", normalsOutBuffer);
             material.SetBuffer("tangentsOutBuffer", tangentsOutBuffer);
+
+            _boneArray = boneBuffer.BeginWrite<Matrix4x4>(0, bones.Length);
+            _rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
+            transforms = new TransformAccessArray(bones);
         }
 
+        static int inverseBaseRotationID = Shader.PropertyToID("inverseBaseRotation");
+        static int worldToLocalMatrixID = Shader.PropertyToID("worldToLocalMatrix");
+
+        private TransformAccessArray transforms;
+        private JobHandle gatherMatrixJobHandle;
+        private SetBuffersJob gatherMatrixJob;
+        NativeArray<Matrix4x4> _boneArray;
+        NativeArray<Quaternion> _rotationArray;
+
+        [BurstCompile(CompileSynchronously = true)]
         protected override bool ApplySkinning()
         {
-            //Profiler.BeginSample("bones");
-            for (int j = 0; j < bones.Length; j++)
+            //Profiler.BeginSample("setup arrays");
+            boneBuffer.EndWrite<Matrix4x4>(bones.Length);
+            _boneArray = boneBuffer.BeginWrite<Matrix4x4>(0, bones.Length);
+            var nativeArrayMatrix = UnsafeUtility.As<NativeArray<Matrix4x4>, NativeArray<float4x4>>(ref _boneArray);
+
+            qBuffer.EndWrite<Quaternion>(bones.Length);
+            _rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
+            //var nativeArrayQuaternion = UnsafeUtility.As<NativeArray<Quaternion>, NativeArray<float4>>(ref _rotationArray);
+            //Profiler.EndSample();
+            gatherMatrixJob = new SetBuffersJob()
             {
-                // Extra: animation doesn't work with scaling
-                // e.g EllenCombo4 animation scales arm bone
+                BoneArray = nativeArrayMatrix,
+                RotationArray = _rotationArray
+            };
+            gatherMatrixJobHandle = gatherMatrixJob.Schedule(transforms);
 
-                //Profiler.BeginSample("reset");
-                //bones[j].localScale = Vector3.one;
-                //Profiler.EndSample();
+            //if you dont want to use jobs/burst compiler uncomment this loop, 
+            //and remove the ComputeBufferMode parameters from boneBuffer and qbuffer. 
+            //Profiler.BeginSample("bones");
+            //for (int i = 0; i < bones.Length; i++)
+            //{
+            //    // Extra: animation doesn't work with scaling
+            //    // e.g EllenCombo4 animation scales arm bone
 
-                //Profiler.BeginSample("m");
-                boneMatrices[j] = bones[j].localToWorldMatrix;
-                //Profiler.EndSample();
+            //    //Profiler.BeginSample("reset");
+            //    //bones[j].localScale = Vector3.one;
+            //    //Profiler.EndSample();
 
-                //Profiler.BeginSample("q");
-                q[j] = bones[j].rotation;
-                //q[j] = bones[j].rotation;
-                //Profiler.EndSample();
-            }
+            //    //Profiler.BeginSample("m");
+            //    //boneMatrices[i] = bones[i].localToWorldMatrix;
+            //    //Profiler.EndSample();
+
+            //    //Profiler.BeginSample("q");
+            //    //q[i] = bones[i].rotation;
+            //    //Profiler.EndSample();
+            //}
             //Profiler.EndSample();
 
             //Profiler.BeginSample("set data");
-            boneBuffer.SetData(boneMatrices);
-            qBuffer.SetData(q);
+            //boneBuffer.SetData(boneMatrices);
+            //qBuffer.SetData(q);
 
-            cs.SetVector(Shader.PropertyToID("inverseBaseRotation"), vector4FromQuaternion(Quaternion.Inverse(transform.rotation)));
+            cs.SetVector(inverseBaseRotationID, vector4FromQuaternion(Quaternion.Inverse(transform.rotation)));
             cs.SetBuffer(kernel, "bindPoseRotations", bindPoseRotations);
             cs.SetBuffer(kernel, "qBuffer", qBuffer);
 
-            cs.SetMatrix(Shader.PropertyToID("worldToLocalMatrix"), transform.worldToLocalMatrix);
+            cs.SetMatrix(worldToLocalMatrixID, transform.worldToLocalMatrix);
             cs.SetBuffer(kernel, "bindBuffer", bindPoseBuffer);
             cs.SetBuffer(kernel, "boneBuffer", boneBuffer);
             
@@ -131,6 +168,19 @@ namespace CoR
             //Debug.Log(material.name);
             return true;
         }
+
+        [BurstCompile(CompileSynchronously = true)]
+        private struct SetBuffersJob : IJobParallelForTransform
+        {
+            public NativeArray<float4x4> BoneArray;
+            public NativeArray<Quaternion> RotationArray;
+            public void Execute(int index, TransformAccess transform)
+            {
+                BoneArray[index] = transform.localToWorldMatrix;
+                RotationArray[index] = transform.rotation;
+            }
+        }
+
         Vector4 vector4FromQuaternion(Quaternion q)
         {
             return new Vector4(q.x, q.y, q.z, q.w);
@@ -149,6 +199,7 @@ namespace CoR
             tBuffer.Dispose();
             qBuffer.Dispose();
             corWeightBuffer.Dispose();
+            transforms.Dispose();
         }
 
     }

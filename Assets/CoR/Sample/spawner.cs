@@ -6,6 +6,7 @@ using UnityEngine;
 public class spawner : MonoBehaviour
 {
     public GameObject prefab;
+    public GameObject prefabOldMethod;
 
     public int x;
     public bool _useNewSkinning;
@@ -17,6 +18,10 @@ public class spawner : MonoBehaviour
     }
     private void Start()
     {
+        if (!_useNewSkinning)
+        {
+            prefab = prefabOldMethod;
+        }
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < x; j++)
