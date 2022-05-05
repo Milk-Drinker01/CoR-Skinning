@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Unity.Burst;
 using UnityEngine;
-
 namespace CoR
 {
 
@@ -15,10 +14,6 @@ namespace CoR
         protected Mesh modifyMesh;
    
         protected Matrix4x4[] boneMatrices;
-      
-        //protected Vector3[] vOut; // transformed verts v′
-        //protected Vector3[] nOut; // normals
-        //protected Vector4[] tOut; // tangents
 
         // not used in SkinnedLinear 
         protected Vector3[] t; // pStar or p*
@@ -40,9 +35,6 @@ namespace CoR
             this.modifyMesh = modifyMesh;
             t = corAsset.pStar;
             q = new Quaternion[bones.Length];
-            //vOut = new Vector3[corAsset.vertices.Length];
-            //nOut = new Vector3[corAsset.normals.Length];
-            //tOut = new Vector4[corAsset.tangents.Length];
             boneMatrices = new Matrix4x4[bones.Length];
 
             OnSetup();
@@ -61,24 +53,11 @@ namespace CoR
             this.globalCorWeight = globalCorWeight;
 
             // apply skinning
-            var applied = ApplySkinning();
-
-            //modifyMesh.vertices = vOut;
-
-            //if (applied)
-            //{
-            //    // update mesh
-            //    modifyMesh.normals = nOut;
-            //    modifyMesh.tangents = tOut;
-            //} else
-            //{
-            //    // normals create edges with RecalculateNormals()?
-            //    modifyMesh.RecalculateNormals();
-            //}
+            ApplySkinning();
         }
 
         // return true if the modify mesh should be updated
-        protected abstract bool ApplySkinning();
+        protected abstract void ApplySkinning();
 
         // required for compute shader
         public virtual void Destroy()

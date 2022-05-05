@@ -48,7 +48,7 @@ namespace CoR
             tangentsBuffer.SetData(tang);
             boneWeightBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(BoneWeight)));
             boneWeightBuffer.SetData(w);
-            boneBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(Matrix4x4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
+            boneBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(float4x4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
             bindPoseBuffer = new ComputeBuffer(corAsset.bindposes.Length, Marshal.SizeOf(typeof(Matrix4x4)));
             bindPoseBuffer.SetData(corAsset.bindposes);
             Quaternion[] bindRotations = new Quaternion[corAsset.bindposes.Length];
@@ -74,7 +74,7 @@ namespace CoR
             material.SetBuffer("normalsOutBuffer", normalsOutBuffer);
             material.SetBuffer("tangentsOutBuffer", tangentsOutBuffer);
 
-            _boneArray = boneBuffer.BeginWrite<Matrix4x4>(0, bones.Length);
+            _boneArray = boneBuffer.BeginWrite<float4x4>(0, bones.Length);
             _rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
             transforms = new TransformAccessArray(bones);
         }
@@ -85,16 +85,15 @@ namespace CoR
         private TransformAccessArray transforms;
         private JobHandle gatherMatrixJobHandle;
         private SetBuffersJob gatherMatrixJob;
-        NativeArray<Matrix4x4> _boneArray;
+        NativeArray<float4x4> _boneArray;
         NativeArray<Quaternion> _rotationArray;
 
-        [BurstCompile(CompileSynchronously = true)]
-        protected override bool ApplySkinning()
+        protected override void ApplySkinning()
         {
             //Profiler.BeginSample("setup arrays");
             boneBuffer.EndWrite<Matrix4x4>(bones.Length);
-            _boneArray = boneBuffer.BeginWrite<Matrix4x4>(0, bones.Length);
-            var nativeArrayMatrix = UnsafeUtility.As<NativeArray<Matrix4x4>, NativeArray<float4x4>>(ref _boneArray);
+            _boneArray = boneBuffer.BeginWrite<float4x4>(0, bones.Length);
+            //var nativeArrayMatrix = UnsafeUtility.As<NativeArray<Matrix4x4>, NativeArray<float4x4>>(ref _boneArray);
 
             qBuffer.EndWrite<Quaternion>(bones.Length);
             _rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
@@ -102,10 +101,12 @@ namespace CoR
             //Profiler.EndSample();
             gatherMatrixJob = new SetBuffersJob()
             {
-                BoneArray = nativeArrayMatrix,
+                BoneArray = _boneArray,
                 RotationArray = _rotationArray
             };
-            gatherMatrixJobHandle = gatherMatrixJob.Schedule(transforms);
+            gatherMatrixJobHandle = gatherMatrixJob.ScheduleReadOnly(transforms, 128);
+
+            //JobHandle.ScheduleBatchedJobs();
 
             //if you dont want to use jobs/burst compiler uncomment this loop, 
             //and remove the ComputeBufferMode parameters from boneBuffer and qbuffer. 
@@ -156,23 +157,16 @@ namespace CoR
             //Profiler.EndSample();
 
             //Profiler.BeginSample("dispatch");
-            cs.Dispatch(kernel, corAsset.vertices.Length / 64 + 1, 1, 1);
+            cs.Dispatch(kernel, corAsset.vertices.Length / 128 + 1, 1, 1);
             //Profiler.EndSample();
-
-            // get data is slow: use Graphics.DrawProcedural() instead
-            // e.g 18 characers = 12fps, without get = 35fps
-            //verticesOutBuffer.GetData(vOut);
-            //normalsOutBuffer.GetData(nOut);
-            //tangentsOutBuffer.GetData(tOut);
-
-            //Debug.Log(material.name);
-            return true;
         }
 
         [BurstCompile(CompileSynchronously = true)]
         private struct SetBuffersJob : IJobParallelForTransform
         {
+            [WriteOnly]
             public NativeArray<float4x4> BoneArray;
+            [WriteOnly]
             public NativeArray<Quaternion> RotationArray;
             public void Execute(int index, TransformAccess transform)
             {

@@ -8,8 +8,17 @@ namespace CoR
     // NOTE: doesn't use any linear skinning weights
     public class CorCPUSkinning : BaseCorSkinning
     {
+        protected Vector3[] vOut; // transformed verts v′
+        protected Vector3[] nOut; // normals
+        protected Vector4[] tOut; // tangents
 
-        protected override bool ApplySkinning()
+        protected override void OnSetup()
+        {
+            vOut = new Vector3[corAsset.vertices.Length];
+            nOut = new Vector3[corAsset.normals.Length];
+            tOut = new Vector4[corAsset.tangents.Length];
+        }
+        protected override void ApplySkinning()
         {
             Quaternion invBaseRot = Quaternion.Inverse(transform.rotation);
             for (int j = 0; j < bones.Length; j++)
@@ -58,18 +67,21 @@ namespace CoR
                 //## vOut[i] = (qOut * v[i]) + t2;
 
                 // combine 8 and 9 (single quat mult)
-                //vOut[i] = (qOut * (v[i] - t[i])) + tOut;
+                vOut[i] = (qOut * (v[i] - t[i])) + tOut;
 
 
-                //// normal => transform direction, not position
-                //if (bw.weight0 > 0) nOut[i] += bw.weight0 * boneMatrices[bw.boneIndex0].MultiplyVector(n[i]);
-                //if (bw.weight1 > 0) nOut[i] += bw.weight1 * boneMatrices[bw.boneIndex1].MultiplyVector(n[i]);
-                //if (bw.weight2 > 0) nOut[i] += bw.weight2 * boneMatrices[bw.boneIndex2].MultiplyVector(n[i]);
-                //if (bw.weight3 > 0) nOut[i] += bw.weight3 * boneMatrices[bw.boneIndex3].MultiplyVector(n[i]);
-                //nOut[i].Normalize();
+                // normal => transform direction, not position
+                if (bw.weight0 > 0) nOut[i] += bw.weight0 * boneMatrices[bw.boneIndex0].MultiplyVector(n[i]);
+                if (bw.weight1 > 0) nOut[i] += bw.weight1 * boneMatrices[bw.boneIndex1].MultiplyVector(n[i]);
+                if (bw.weight2 > 0) nOut[i] += bw.weight2 * boneMatrices[bw.boneIndex2].MultiplyVector(n[i]);
+                if (bw.weight3 > 0) nOut[i] += bw.weight3 * boneMatrices[bw.boneIndex3].MultiplyVector(n[i]);
+                nOut[i].Normalize();
             }
 
-            return true;
+
+            modifyMesh.vertices = vOut;
+            modifyMesh.normals = nOut;
+            modifyMesh.tangents = tOut;
         }
 
         //  q ← wi1q1 ⊕wi2q2 ⊕...⊕wimqm
