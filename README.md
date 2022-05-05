@@ -6,4 +6,5 @@ The majority of this code is not mine - it comes from CodeKiwi on the unity foru
 this is a wip repo that i only recommend looking through if you hate yourself. im actively working on making it more user friendly and faster
 
 an extereme example of the built in LBS skinning vs CoR skinning:
-![Screenshot_4](https://user-images.githubusercontent.com/59656122/166972438-a96e1fe5-ca86-4491-b9bd-5315660bb84e.png)
+
+![Screenshot_2](https://user-images.githubusercontent.com/59656122/166972562-49e7720e-475a-4907-9c80-040aa5fd7d56.png)
