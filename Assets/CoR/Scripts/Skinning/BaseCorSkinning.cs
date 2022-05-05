@@ -22,13 +22,12 @@ namespace CoR
         // shared mesh settings in asset e.g includes vertices
         // can't access from mesh (creates new arrays)
         protected CorAsset corAsset;
-        public Material material;
+        public Material[] materials;
         protected float globalCorWeight = 1;
 
-        Material mat;
-        public void Setup(CorAsset corAsset, Transform[] bones,  GameObject gameObject, Mesh modifyMesh, Material m)
+        public void Setup(CorAsset corAsset, Transform[] bones,  GameObject gameObject, Mesh modifyMesh, Material[] m)
         {
-            this.material  = m;
+            materials = m;
             this.corAsset = corAsset;
             this.transform = gameObject.transform;
             this.bones = bones;

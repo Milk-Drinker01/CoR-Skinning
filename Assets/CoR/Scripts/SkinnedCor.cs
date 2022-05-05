@@ -9,6 +9,7 @@ namespace CoR
         public CorAsset corAsset;
         public Mesh optionalHdMesh;
         public Texture2D weightTexture;
+        //public Shader = Shader.Find
         BaseCorSkinning skinning;
   
         // only keeping values for switching modes
@@ -16,7 +17,7 @@ namespace CoR
         Transform[] bones;
         Material[] materials;
         int vertexCount;
-        Material mat;
+        //Material mat;
         bool initialized = false;
 
         public bool gpuEnabled {
@@ -65,20 +66,21 @@ namespace CoR
             bones = skin.bones;
             var mf = gameObject.AddComponent<MeshFilter>();
             vertexCount = skin.sharedMesh.vertexCount;
-            mat = skin.materials[0];
+            //mat = skin.materials[0];
             modifyMesh = (Mesh)GameObject.Instantiate(skin.sharedMesh); // clone
             //modifyMesh.MarkDynamic(); // Optimize mesh for frequent updates.
             mf.mesh = modifyMesh;
             modifyMesh.RecalculateBounds();
 
-            materials = skin.sharedMaterials;
+            materials = skin.materials;
 
             var meshRend = gameObject.AddComponent<MeshRenderer>();
             meshRend.shadowCastingMode = skin.shadowCastingMode;
             meshRend.allowOcclusionWhenDynamic = false;
             for (int i = 0; i < materials.Length; i++)
             {
-                materials[i] = mat;
+                materials[i].SetFloat(Shader.PropertyToID("_Initialized"), 1);
+                //materials[i] = mat;
             }
             meshRend.materials = materials;
 
@@ -106,7 +108,7 @@ namespace CoR
                 skinning = new CorCPUSkinning();
             }
 
-            skinning.Setup(corAsset, bones, gameObject, modifyMesh, mat);
+            skinning.Setup(corAsset, bones, gameObject, modifyMesh, materials);
         }
 
         // FixedUpdate(), LateUpdate() or  Update(). Using FixedUpdate() for testing 

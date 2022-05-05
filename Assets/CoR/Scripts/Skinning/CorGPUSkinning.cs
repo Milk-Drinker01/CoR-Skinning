@@ -70,9 +70,13 @@ namespace CoR
 
             kernel = cs.FindKernel("CSMain");
 
-            material.SetBuffer("verticesOutBuffer", verticesOutBuffer);
-            material.SetBuffer("normalsOutBuffer", normalsOutBuffer);
-            material.SetBuffer("tangentsOutBuffer", tangentsOutBuffer);
+            for (int i = 0; i < materials.Length; i++)
+            {
+                materials[i].SetBuffer("verticesOutBuffer", verticesOutBuffer);
+                materials[i].SetBuffer("normalsOutBuffer", normalsOutBuffer);
+                materials[i].SetBuffer("tangentsOutBuffer", tangentsOutBuffer);
+            }
+            
 
             _boneArray = boneBuffer.BeginWrite<float4x4>(0, bones.Length);
             _rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
