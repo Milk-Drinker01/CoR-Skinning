@@ -18,7 +18,7 @@ namespace CoR
             nOut = new Vector3[corAsset.normals.Length];
             tOut = new Vector4[corAsset.tangents.Length];
         }
-        protected override void ApplySkinning()
+        protected override void CalculateSkinning()
         {
             Quaternion invBaseRot = Quaternion.Inverse(transform.rotation);
             for (int j = 0; j < bones.Length; j++)
@@ -77,8 +77,9 @@ namespace CoR
                 if (bw.weight3 > 0) nOut[i] += bw.weight3 * boneMatrices[bw.boneIndex3].MultiplyVector(n[i]);
                 nOut[i].Normalize();
             }
-
-
+        }
+        protected override void ApplySkinning()
+        {
             modifyMesh.vertices = vOut;
             modifyMesh.normals = nOut;
             modifyMesh.tangents = tOut;

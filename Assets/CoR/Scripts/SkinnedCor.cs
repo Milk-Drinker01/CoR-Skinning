@@ -37,6 +37,10 @@ namespace CoR
         }
         private void initializeSkinning()
         {
+            if (CoRManager.instance == null)
+            {
+                CoRManager.instance = new GameObject("CoR Manager").AddComponent<CoRManager>();
+            }
             if (!enabled || initialized)
             {
                 return;
@@ -89,6 +93,8 @@ namespace CoR
 
             ChangeSkinning();
             initialized = true;
+
+            CoRManager.instance.instances.Add(skinning);
         }
        
         private void ChangeSkinning()
@@ -112,18 +118,18 @@ namespace CoR
         }
 
         // FixedUpdate(), LateUpdate() or  Update(). Using FixedUpdate() for testing 
-        void LateUpdate()
-        {
-            skinning.Skin(corAsset.globalCorWeight);
+        //void LateUpdate()
+        //{
+        //    skinning.Skin(corAsset.globalCorWeight);
 
-            //return;
-            //Graphics.DrawProcedural(
-            //mat,
-            //new Bounds(transform.position, transform.lossyScale * 5),
-            //MeshTopology.Triangles, vertexCount, 1,
-            //null, null,
-            //ShadowCastingMode.Off, true, gameObject.layer);
-        }
+        //    //return;
+        //    //Graphics.DrawProcedural(
+        //    //mat,
+        //    //new Bounds(transform.position, transform.lossyScale * 5),
+        //    //MeshTopology.Triangles, vertexCount, 1,
+        //    //null, null,
+        //    //ShadowCastingMode.Off, true, gameObject.layer);
+        //}
 
         void OnDestroy()
         {

@@ -52,10 +52,15 @@ namespace CoR
             this.globalCorWeight = globalCorWeight;
 
             // apply skinning
+            CalculateSkinning();
+        }
+        public void Apply()
+        {
             ApplySkinning();
         }
 
         // return true if the modify mesh should be updated
+        protected abstract void CalculateSkinning();
         protected abstract void ApplySkinning();
 
         // required for compute shader
