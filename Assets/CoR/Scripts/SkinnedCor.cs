@@ -19,6 +19,7 @@ namespace CoR
         int vertexCount;
         //Material mat;
         bool initialized = false;
+        bool registered = false;
 
         public bool gpuEnabled {
             get
@@ -29,11 +30,50 @@ namespace CoR
 
         private void Awake()
         {
-            initializeSkinning();
+            if (!initialized)
+            {
+                initializeSkinning();
+            }
         }
         private void OnEnable()
         {
-            initializeSkinning();
+            if (!initialized)
+            {
+                initializeSkinning();
+                return;
+            }
+            registerInstace();
+        }
+        void OnDestroy()
+        {
+            if (skinning != null)
+            {
+                skinning.Destroy();
+                skinning = null;
+            }
+        }
+        private void OnDisable()
+        {
+            if (registered)
+            {
+                deregisterInstance();
+            }
+        }
+        void registerInstace()
+        {
+            if (!registered)
+            {
+                registered = true;
+                CoRManager.instance.instances.Add(skinning);
+            }
+        }
+        void deregisterInstance()
+        {
+            if (registered)
+            {
+                registered = false;
+                CoRManager.instance.instances.Remove(skinning);
+            }
         }
         private void initializeSkinning()
         {
@@ -41,7 +81,7 @@ namespace CoR
             {
                 CoRManager.instance = new GameObject("CoR Manager").AddComponent<CoRManager>();
             }
-            if (!enabled || initialized)
+            if (!enabled)
             {
                 return;
             }
@@ -94,7 +134,7 @@ namespace CoR
             ChangeSkinning();
             initialized = true;
 
-            CoRManager.instance.instances.Add(skinning);
+            registerInstace();
         }
        
         private void ChangeSkinning()
@@ -130,16 +170,6 @@ namespace CoR
         //    //null, null,
         //    //ShadowCastingMode.Off, true, gameObject.layer);
         //}
-
-        void OnDestroy()
-        {
-            if (skinning != null)
-            {
-                skinning.Destroy();
-                skinning = null;
-            }
-        }
-
     }
 
 }
