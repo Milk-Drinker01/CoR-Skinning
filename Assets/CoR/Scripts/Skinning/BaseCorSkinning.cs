@@ -23,16 +23,19 @@ namespace CoR
         // can't access from mesh (creates new arrays)
         protected CorAsset corAsset;
         public Material[] materials;
-        protected float globalCorWeight = 1;
+        //protected float globalCorWeight = 1;
 
-        public void Setup(CorAsset corAsset, Transform[] bones,  GameObject gameObject, Mesh modifyMesh, Material[] m)
+        public void Setup(CorAsset corAsset, Transform[] bones,  GameObject gameObject, Mesh modifyMesh, Material[] m, bool isCpu)
         {
             materials = m;
             this.corAsset = corAsset;
             this.transform = gameObject.transform;
             this.bones = bones;
             this.modifyMesh = modifyMesh;
-            t = corAsset.pStar;
+            if (isCpu)
+            {
+                t = corAsset.pStar;
+            }
             q = new Quaternion[bones.Length];
             boneMatrices = new Matrix4x4[bones.Length];
 
@@ -47,10 +50,8 @@ namespace CoR
         }
 
         [BurstCompile(CompileSynchronously = true)]
-        public void Skin(float globalCorWeight)
+        public void Skin()
         {
-            this.globalCorWeight = globalCorWeight;
-
             // apply skinning
             CalculateSkinning();
         }

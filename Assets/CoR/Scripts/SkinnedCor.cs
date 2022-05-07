@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace CoR
@@ -64,7 +65,12 @@ namespace CoR
             if (!registered)
             {
                 registered = true;
-                CoRManager.instance.instances.Add(skinning);
+                //CoRManager.instance.instances.Add(skinning);
+                if (!CoRManager.instance.sortedInstances.ContainsKey(corAsset))
+                {
+                    CoRManager.instance.addInstanceType(corAsset);
+                }
+                CoRManager.instance.sortedInstances[corAsset].instances.Add(skinning);
             }
         }
         void deregisterInstance()
@@ -72,7 +78,12 @@ namespace CoR
             if (registered)
             {
                 registered = false;
-                CoRManager.instance.instances.Remove(skinning);
+                //CoRManager.instance.instances.Remove(skinning);
+                CoRManager.instance.sortedInstances[corAsset].instances.Remove(skinning);
+                if (CoRManager.instance.sortedInstances[corAsset].instances.Count == 0)
+                {
+                    CoRManager.instance.removeInstanceType(corAsset);
+                }
             }
         }
         private void initializeSkinning()
@@ -145,16 +156,18 @@ namespace CoR
                 skinning = null;
             }
 
+            bool cpu = true;
             if (gpuEnabled)
             {
                 skinning = new CorGPUSkinning();
+                cpu = false;
             }
             else
             {
                 skinning = new CorCPUSkinning();
             }
 
-            skinning.Setup(corAsset, bones, gameObject, modifyMesh, materials);
+            skinning.Setup(corAsset, bones, gameObject, modifyMesh, materials, cpu);
         }
 
         // FixedUpdate(), LateUpdate() or  Update(). Using FixedUpdate() for testing 

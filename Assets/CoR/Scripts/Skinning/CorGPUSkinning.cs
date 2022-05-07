@@ -19,19 +19,12 @@ namespace CoR
     public class CorGPUSkinning : BaseCorSkinning
     {
         ComputeShader cs;
-        ComputeBuffer verticesBuffer;
-        ComputeBuffer normalsBuffer;
-        ComputeBuffer tangentsBuffer;
-        ComputeBuffer boneWeightBuffer;
-        ComputeBuffer boneBuffer;
-        ComputeBuffer bindPoseBuffer;
-        ComputeBuffer bindPoseRotations;
         ComputeBuffer verticesOutBuffer;
         ComputeBuffer normalsOutBuffer;
         ComputeBuffer tangentsOutBuffer;
-        ComputeBuffer tBuffer;
+        ComputeBuffer boneBuffer;
         ComputeBuffer qBuffer;
-        ComputeBuffer corWeightBuffer;
+        
         int kernel;
 
         protected override void OnSetup()
@@ -41,39 +34,11 @@ namespace CoR
             var tang = corAsset.tangents;
             var w = corAsset.boneWeights;
             cs = Resources.Load<ComputeShader>("CorSkinning");
-            verticesBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector3)));
-            verticesBuffer.SetData(v);
-            normalsBuffer = new ComputeBuffer(n.Length, Marshal.SizeOf(typeof(Vector3)));
-            normalsBuffer.SetData(n);
-            tangentsBuffer = new ComputeBuffer(n.Length, Marshal.SizeOf(typeof(Vector4)));
-            tangentsBuffer.SetData(tang);
             verticesOutBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector3)));
             normalsOutBuffer = new ComputeBuffer(n.Length, Marshal.SizeOf(typeof(Vector3)));
             tangentsOutBuffer = new ComputeBuffer(tang.Length, Marshal.SizeOf(typeof(Vector4)));
-            tBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector3)));
-            qBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
-            tBuffer.SetData(t);
-
-
-            //These buffers need to be used on a per-type instance,
-            //rather than a per-instance instance
-            //this will help save ram
-            boneWeightBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(BoneWeight)));
-            boneWeightBuffer.SetData(w);
             boneBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(float4x4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
-            bindPoseBuffer = new ComputeBuffer(corAsset.bindposes.Length, Marshal.SizeOf(typeof(Matrix4x4)));
-            bindPoseBuffer.SetData(corAsset.bindposes);
-            Quaternion[] bindRotations = new Quaternion[corAsset.bindposes.Length];
-            bindPoseRotations = new ComputeBuffer(bindRotations.Length, Marshal.SizeOf(typeof(Vector4)));
-            for (int i = 0; i < bindRotations.Length; i++)
-            {
-                bindRotations[i] = corAsset.bindposes[i].rotation;
-            }
-            bindPoseRotations.SetData(bindRotations);
-            corWeightBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(float)));
-            corWeightBuffer.SetData(corAsset.corWeight);
-
-
+            qBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
 
             kernel = cs.FindKernel("CSMain");
 
@@ -131,33 +96,25 @@ namespace CoR
         protected override void ApplySkinning()
         {
             gatherMatrixJobHandle.Complete();
+            //Profiler.BeginSample("endWrite");
             boneBuffer.EndWrite<Matrix4x4>(bones.Length);
             qBuffer.EndWrite<Quaternion>(bones.Length);
+            //Profiler.EndSample();
 
             //Profiler.BeginSample("set data");
+
+            //uncomment these if you arent using jobs
             //boneBuffer.SetData(boneMatrices);
             //qBuffer.SetData(q);
 
             cs.SetVector(inverseBaseRotationID, vector4FromQuaternion(Quaternion.Inverse(transform.rotation)));
-            cs.SetBuffer(kernel, "bindPoseRotations", bindPoseRotations);
-            cs.SetBuffer(kernel, "qBuffer", qBuffer);
-
             cs.SetMatrix(worldToLocalMatrixID, transform.worldToLocalMatrix);
-            cs.SetBuffer(kernel, "bindBuffer", bindPoseBuffer);
+            cs.SetBuffer(kernel, "qBuffer", qBuffer);
             cs.SetBuffer(kernel, "boneBuffer", boneBuffer);
-
-            cs.SetBuffer(kernel, "verticesBuffer", verticesBuffer);
-            cs.SetBuffer(kernel, "g_corWeight", corWeightBuffer);
-            cs.SetBuffer(kernel, "normalsBuffer", normalsBuffer);
-            cs.SetBuffer(kernel, "tangentsBuffer", tangentsBuffer);
-            cs.SetBuffer(kernel, "boneWeightBuffer", boneWeightBuffer);
+            
             cs.SetBuffer(kernel, "verticesOutBuffer", verticesOutBuffer);
             cs.SetBuffer(kernel, "normalsOutBuffer", normalsOutBuffer);
             cs.SetBuffer(kernel, "tangentsOutBuffer", tangentsOutBuffer);
-            cs.SetBuffer(kernel, "tBuffer", tBuffer);
-            cs.SetBuffer(kernel, "corWeight", corWeightBuffer);
-            cs.SetInt("vertCount", corAsset.vertices.Length);
-            cs.SetFloat("g_corWeight", globalCorWeight);
             //Profiler.EndSample();
 
             //Profiler.BeginSample("dispatch");
@@ -214,20 +171,12 @@ namespace CoR
 
         public override void Destroy()
         {
-            verticesBuffer.Dispose();
-            normalsBuffer.Dispose();
-            tangentsBuffer.Dispose();
-            boneWeightBuffer.Dispose();
             boneBuffer.Dispose();
             verticesOutBuffer.Dispose();
             normalsOutBuffer.Dispose();
             tangentsOutBuffer.Dispose();
-            tBuffer.Dispose();
             qBuffer.Dispose();
-            corWeightBuffer.Dispose();
             transforms.Dispose();
-            bindPoseBuffer.Dispose();
-            bindPoseRotations.Dispose();
         }
 
     }
