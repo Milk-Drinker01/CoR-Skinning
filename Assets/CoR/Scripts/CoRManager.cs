@@ -33,13 +33,9 @@ namespace CoR
                     instance.Skin();
                 }
             }
-            //foreach(BaseCorSkinning s in instances)
-            //{
-            //    s.Skin(1);
-            //}
             //Profiler.EndSample();
             //Profiler.BeginSample("complete");
-            JobHandle.ScheduleBatchedJobs();
+            //JobHandle.ScheduleBatchedJobs();
             //Profiler.EndSample();
             //Profiler.BeginSample("apply");
             foreach (CorAsset type in sortedInstances.Keys)
@@ -50,11 +46,6 @@ namespace CoR
                     instance.Apply();
                 }
             }
-            //foreach (BaseCorSkinning s in instances)
-            //{
-            //    s.Apply();
-            //}
-            //Profiler.EndSample();
         }
         void setupCS(CoRData data)
         {
