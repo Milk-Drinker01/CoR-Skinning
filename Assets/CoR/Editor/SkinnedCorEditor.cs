@@ -47,8 +47,9 @@ namespace CoR
             {
                 if (GUILayout.Button("Create CoR Asset"))
                 {
-                    var obj = PrefabUtility.GetCorrespondingObjectFromSource(skinnedCor.gameObject);
-                    var prefabPath = AssetDatabase.GetAssetPath(obj);
+                    //var obj = PrefabUtility.GetCorrespondingObjectFromSource(skinnedCor.gameObject);
+                    //var prefabPath = AssetDatabase.GetAssetPath(obj);
+                    var prefabPath = AssetDatabase.GetAssetPath(skinnedRenderer.sharedMesh);
                     var assetPath = Path.GetDirectoryName(prefabPath);
                     var fileName = Path.GetFileNameWithoutExtension(prefabPath);
                     var meshName = skinnedRenderer.sharedMesh.name;
