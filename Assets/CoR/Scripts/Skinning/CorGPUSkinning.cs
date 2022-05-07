@@ -83,19 +83,20 @@ namespace CoR
                 materials[i].SetBuffer("normalsOutBuffer", normalsOutBuffer);
                 materials[i].SetBuffer("tangentsOutBuffer", tangentsOutBuffer);
             }
-            
 
+            //test = boneBuffer.GetNativeBufferPtr();
             //_boneArray = boneBuffer.BeginWrite<float4x4>(0, bones.Length);
             //_rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
             transforms = new TransformAccessArray(bones);
 
             gatherMatrixJob = new SetBuffersJob()
             {
-                BoneArray = _boneArray,
-                RotationArray = _rotationArray
+                //test = test,
+                //BoneArray = _boneArray,
+                //RotationArray = _rotationArray
             };
         }
-
+        //IntPtr test;
         static int inverseBaseRotationID = Shader.PropertyToID("inverseBaseRotation");
         static int worldToLocalMatrixID = Shader.PropertyToID("worldToLocalMatrix");
 
@@ -103,29 +104,20 @@ namespace CoR
         private JobHandle gatherMatrixJobHandle;
         private SetBuffersJob gatherMatrixJob;
         NativeArray<float4x4> _boneArray;
-        NativeArray<Quaternion> _rotationArray;
+        NativeArray<float4> _rotationArray;
 
         protected override void CalculateSkinning()
         {
             //Profiler.BeginSample("setup arrays");
-            //boneBuffer.EndWrite<Matrix4x4>(bones.Length);
             _boneArray = boneBuffer.BeginWrite<float4x4>(0, bones.Length);
-            //var nativeArrayMatrix = UnsafeUtility.As<NativeArray<Matrix4x4>, NativeArray<float4x4>>(ref _boneArray);
+            //var nativeArrayMatrix = UnsafeUtility.As<NativeArray<float4x4>, NativeArray<float4x4>>(ref _boneArray);
 
-            //qBuffer.EndWrite<Quaternion>(bones.Length);
-            _rotationArray = qBuffer.BeginWrite<Quaternion>(0, bones.Length);
-            //var nativeArrayQuaternion = UnsafeUtility.As<NativeArray<Quaternion>, NativeArray<float4>>(ref _rotationArray);
+            _rotationArray = qBuffer.BeginWrite<float4>(0, bones.Length);
+            var nativeArrayQuaternion = UnsafeUtility.As<NativeArray<float4>, NativeArray<Quaternion>>(ref _rotationArray);
             //Profiler.EndSample();
 
-            //experimental shit ill have to play with more
-            //unsafe
-            //{
-            //    Buffer.MemoryCopy(boneBuffer.GetNativeBufferPtr().ToPointer(), gatherMatrixJob.BoneArray.GetUnsafePtr(), gatherMatrixJob.BoneArray.Length * Marshal.SizeOf(typeof(Matrix4x4)), gatherMatrixJob.BoneArray.Length * Marshal.SizeOf(typeof(Matrix4x4)));
-            //    Buffer.MemoryCopy(qBuffer.GetNativeBufferPtr().ToPointer(), gatherMatrixJob.RotationArray.GetUnsafePtr(), gatherMatrixJob.RotationArray.Length * Marshal.SizeOf(typeof(Quaternion)), gatherMatrixJob.RotationArray.Length * Marshal.SizeOf(typeof(Quaternion)));
-            //}
-
             gatherMatrixJob.BoneArray = _boneArray;
-            gatherMatrixJob.RotationArray = _rotationArray;
+            gatherMatrixJob.RotationArray = nativeArrayQuaternion;
             gatherMatrixJobHandle = gatherMatrixJob.ScheduleReadOnly(transforms, 128);
             //gatherMatrixJob.RunReadOnly(transforms);
 
@@ -133,6 +125,7 @@ namespace CoR
 
             //if you dont want to use jobs/burst compiler uncomment this loop, 
             //and remove the ComputeBufferMode parameters from boneBuffer and qbuffer. 
+            //you also have to re-enable boneBuffer.setdata and qBuffer.setData in applySkinning
             //skinningNoJobs();
         }
         protected override void ApplySkinning()
@@ -140,9 +133,6 @@ namespace CoR
             gatherMatrixJobHandle.Complete();
             boneBuffer.EndWrite<Matrix4x4>(bones.Length);
             qBuffer.EndWrite<Quaternion>(bones.Length);
-
-            //gatherMatrixJob.BoneArray.Dispose();
-            //gatherMatrixJob.RotationArray.Dispose();
 
             //Profiler.BeginSample("set data");
             //boneBuffer.SetData(boneMatrices);
@@ -179,12 +169,18 @@ namespace CoR
         [BurstCompile(CompileSynchronously = true)]
         private struct SetBuffersJob : IJobParallelForTransform
         {
+            //[NativeDisableUnsafePtrRestriction]
+            //public IntPtr test;
             [WriteOnly]
             public NativeArray<float4x4> BoneArray;
             [WriteOnly]
             public NativeArray<Quaternion> RotationArray;
             public void Execute(int index, TransformAccess transform)
             {
+                //unsafe
+                //{
+                //    ((float4x4*)test)[index] = transform.localToWorldMatrix;
+                //}
                 BoneArray[index] = transform.localToWorldMatrix;
                 RotationArray[index] = transform.rotation;
             }

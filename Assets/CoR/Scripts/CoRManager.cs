@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 namespace CoR
 {
@@ -14,6 +15,7 @@ namespace CoR
             {
                 s.Skin(1);
             }
+            JobHandle.ScheduleBatchedJobs();
             foreach (BaseCorSkinning s in instances)
             {
                 s.Apply();
