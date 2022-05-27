@@ -10,7 +10,7 @@ namespace CoR
     public class CoRManager : MonoBehaviour
     {
         public static CoRManager instance;
-        public float globalCorWeight = 1;
+        [Range(0, 1)] public float globalCorWeight = 1;
         //public List<BaseCorSkinning> instances = new List<BaseCorSkinning>();
         public Dictionary<CorAsset, CoRData> sortedInstances = new Dictionary<CorAsset, CoRData>();
 
@@ -49,6 +49,7 @@ namespace CoR
         }
         void setupCS(CoRData data)
         {
+            cs.SetBuffer(kernel, "realIndices", data.realIndicesBuffer);
             cs.SetBuffer(kernel, "verticesBuffer", data.verticesBuffer);
             cs.SetBuffer(kernel, "normalsBuffer", data.normalsBuffer);
             cs.SetBuffer(kernel, "tangentsBuffer", data.tangentsBuffer);
@@ -82,6 +83,7 @@ namespace CoR
         public List<BaseCorSkinning> instances;
         public int vertexCount;
 
+        public ComputeBuffer realIndicesBuffer;
         public ComputeBuffer verticesBuffer;
         public ComputeBuffer normalsBuffer;
         public ComputeBuffer tangentsBuffer;
@@ -105,6 +107,8 @@ namespace CoR
             var tang = corAsset.tangents;
             var w = corAsset.boneWeights;
 
+            realIndicesBuffer = new ComputeBuffer(corAsset.usedBoneIndices.Length, Marshal.SizeOf(typeof(int)));
+            realIndicesBuffer.SetData(corAsset.usedBoneIndices);
             verticesBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector3)));
             verticesBuffer.SetData(v);
             normalsBuffer = new ComputeBuffer(n.Length, Marshal.SizeOf(typeof(Vector3)));
@@ -130,6 +134,7 @@ namespace CoR
 
         public void cleanup()
         {
+            realIndicesBuffer.Dispose();
             verticesBuffer.Dispose();
             normalsBuffer.Dispose();
             tangentsBuffer.Dispose();

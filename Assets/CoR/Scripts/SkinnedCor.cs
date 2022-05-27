@@ -10,7 +10,7 @@ namespace CoR
         public CorAsset corAsset;
         public Mesh optionalHdMesh;
         public Texture2D weightTexture;
-        //public Shader = Shader.Find
+        //public Shader test = Shader.Find
         BaseCorSkinning skinning;
   
         // only keeping values for switching modes
@@ -118,7 +118,13 @@ namespace CoR
                 anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             }
 
-            bones = skin.bones;
+            List<Transform> usedBones = new List<Transform>();
+            for (int i = 0; i < corAsset.usedBones.Length; i++)
+            {
+                usedBones.Add(skin.bones[corAsset.usedBones[i]]);
+            }
+            //bones = skin.bones;
+            bones = usedBones.ToArray();
             var mf = gameObject.AddComponent<MeshFilter>();
             vertexCount = skin.sharedMesh.vertexCount;
             //mat = skin.materials[0];

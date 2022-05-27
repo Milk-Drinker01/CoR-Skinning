@@ -21,6 +21,8 @@ namespace CoR
         // from mesh. shared between instances e.g can't access sharedMesh.vertices, creates new array on access
         public Matrix4x4[] bindposes;
         public BoneWeight[] boneWeights;
+        public int[] usedBones;
+        public int[] usedBoneIndices;
         public Vector3[] vertices; // fixed verts. not the same as modifyMesh.vertices
         public Vector3[] normals;
         public Vector4[] tangents;
@@ -56,8 +58,9 @@ namespace CoR
             vertices = mesh.vertices;
             normals = mesh.normals;
             tangents = mesh.tangents;
+            getUsedBones(mesh, hdMesh);
             //uv = mesh.uv;
-            
+
             corWeight = GetCorWeight(weightImg, mesh.uv);
 
             // can't access Mesh data outside of main thread
@@ -87,6 +90,56 @@ namespace CoR
                 processingThread.Start(param);
             }
 
+        }
+
+        void getUsedBones(Mesh mesh, Mesh hdMesh)
+        {
+            int totalBoneCount = bindposes.Length;  //i hope this works
+
+            BoneWeight[] weights = mesh.boneWeights;
+            BoneWeight[] hdWeights = hdMesh.boneWeights;
+
+            //get highest bone index
+            int highestBone = -1;
+            for (int i = 0; i < weights.Length; i++)
+            {
+                BoneWeight inQuestion = weights[i];
+                highestBone = Mathf.Max(inQuestion.boneIndex0, highestBone);
+                highestBone = Mathf.Max(inQuestion.boneIndex1, highestBone);
+                highestBone = Mathf.Max(inQuestion.boneIndex2, highestBone);
+                highestBone = Mathf.Max(inQuestion.boneIndex3, highestBone);
+            }
+            highestBone++;
+
+            //find which bones actually have weight for this mesh
+            float[] weightPerBone = new float[highestBone];
+            for (int i = 0; i < weights.Length; i++)
+            {
+                BoneWeight inQuestion = weights[i];
+                weightPerBone[inQuestion.boneIndex0] += inQuestion.weight0;
+                weightPerBone[inQuestion.boneIndex1] += inQuestion.weight1;
+                weightPerBone[inQuestion.boneIndex2] += inQuestion.weight2;
+                weightPerBone[inQuestion.boneIndex3] += inQuestion.weight3;
+            }
+            List<int> usedBoneList = new List<int>();
+            for (int i = 0; i < highestBone; i++)
+            {
+                if (!Mathf.Approximately(0, weightPerBone[i]))
+                {
+                    usedBoneList.Add(i);
+                }
+            }
+            usedBones = usedBoneList.ToArray();
+
+
+            usedBoneIndices = new int[totalBoneCount];
+            Matrix4x4[] realBindPoses = new Matrix4x4[usedBones.Length];
+            for (int i = 0; i < usedBones.Length; i++)
+            {
+                usedBoneIndices[usedBones[i]] = i;  //this just felt wrong when typing it out
+                realBindPoses[i] = bindposes[usedBones[i]];
+            }
+            bindposes = realBindPoses;
         }
 
         float[] GetCorWeight(Texture2D weightImg, Vector2[] uv)

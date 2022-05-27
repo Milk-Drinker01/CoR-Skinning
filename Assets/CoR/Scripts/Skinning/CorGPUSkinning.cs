@@ -38,7 +38,7 @@ namespace CoR
             normalsOutBuffer = new ComputeBuffer(n.Length, Marshal.SizeOf(typeof(Vector3)));
             tangentsOutBuffer = new ComputeBuffer(tang.Length, Marshal.SizeOf(typeof(Vector4)));
             boneBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(float4x4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
-            qBuffer = new ComputeBuffer(v.Length, Marshal.SizeOf(typeof(Vector4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
+            qBuffer = new ComputeBuffer(bones.Length, Marshal.SizeOf(typeof(Vector4)), ComputeBufferType.Default, ComputeBufferMode.SubUpdates);
 
             kernel = cs.FindKernel("CSMain");
 
