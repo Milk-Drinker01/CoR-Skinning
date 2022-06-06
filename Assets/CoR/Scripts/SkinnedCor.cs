@@ -143,7 +143,7 @@ namespace CoR
                 materials[i].SetFloat(Shader.PropertyToID("_Initialized"), 1);
                 //materials[i] = mat;
             }
-            meshRend.materials = materials;
+            meshRend.sharedMaterials = materials;
 
             skin.enabled = false;
             Destroy(skin);

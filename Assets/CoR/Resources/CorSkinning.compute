@@ -24,6 +24,8 @@ float3 quatMul(const float4 q, const float3 v) {
 	return v + uv + uuv;
 }
 
+StructuredBuffer<int> realIndices;
+
 float4 inverseBaseRotation;
 StructuredBuffer<float4> bindPoseRotations;
 StructuredBuffer<float4> qBuffer;
@@ -86,36 +88,36 @@ float4 mulQxQ(float4 lhs, float4 rhs)
 [numthreads(128, 1, 1)]
 void CSMain(uint3 threadID : SV_DispatchThreadID)
 {
-	const uint t = threadID.x;
+    const uint t = threadID.x;
 	
-	if (t >= vertCount)
-	{
-		return;
-	} 
+    if (t >= vertCount)
+    {
+        return;
+    }
 
-	const float3 v = verticesBuffer[t];
-	const float4 t4 = float4(tBuffer[t], 1); 
-	const float4 v4 = float4(v, 1);
+    const float3 v = verticesBuffer[t];
+    const float4 t4 = float4(tBuffer[t], 1);
+    const float4 v4 = float4(v, 1);
 
-	float4 qOut =  float4(0, 0, 0, 0); 
+    float4 qOut = float4(0, 0, 0, 0);
 	//float4 b =  float4(0, 0, 0, 0); 
 	//float3 tOut =  float3(0, 0, 0);
-	BoneWeightCS bw = boneWeightBuffer[t];
+    BoneWeightCS bw = boneWeightBuffer[t];
 
 	// LBS on normals and tangents (close enough)
-	float3 linearOut = float3(0, 0, 0);
-	const float4 n4 = float4(normalsBuffer[t], 0);
+    float3 linearOut = float3(0, 0, 0);
+    const float4 n4 = float4(normalsBuffer[t], 0);
 	//float3 nOut = float3(0, 0, 0);
-	float4 tang = tangentsBuffer[t];
+    float4 tang = tangentsBuffer[t];
 	//float3 tangOut = float3(0, 0, 0);
 	
 	
-	
-    float4x4 multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index0], bindBuffer[bw.index0]));
+    int realIndex = realIndices[bw.index0];
+    float4x4 multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[realIndex], bindBuffer[realIndex]));
     linearOut += bw.weight0 * mul(multMatrix, v4).xyz;
 
     float3 tOut = bw.weight0 * mul(multMatrix, t4).xyz;
-    float4 b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index0], bindPoseRotations[bw.index0])), bw.weight0);
+    float4 b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[realIndex], bindPoseRotations[realIndex])), bw.weight0);
     if (dot(qOut, b) >= 0)
         qOut += b;
     else
@@ -126,45 +128,60 @@ void CSMain(uint3 threadID : SV_DispatchThreadID)
 	//if (bw.weight0 > 0) {
         
  //   }
-	if (bw.weight1 > 0) {
-        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index1], bindBuffer[bw.index1]));
+    if (bw.weight1 > 0)
+    {
+        realIndex = realIndices[bw.index1];
+        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[realIndex], bindBuffer[realIndex]));
         linearOut += bw.weight1 * mul(multMatrix, v4).xyz;
 
         tOut += bw.weight1 * mul(multMatrix, t4).xyz;
-        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index1], bindPoseRotations[bw.index1])), bw.weight1);
-		if (dot(qOut, b) >= 0) qOut += b; else qOut -= b;
+        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[realIndex], bindPoseRotations[realIndex])), bw.weight1);
+        if (dot(qOut, b) >= 0)
+            qOut += b;
+        else
+            qOut -= b;
 
         nOut += bw.weight1 * mul(multMatrix, n4).xyz;
         tangOut += bw.weight1 * mul((float3x3) multMatrix, tang).xyz;
     }
-	if (bw.weight2 > 0) {
-        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index2], bindBuffer[bw.index2]));
+    if (bw.weight2 > 0)
+    {
+        realIndex = realIndices[bw.index2];
+        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[realIndex], bindBuffer[realIndex]));
         linearOut += bw.weight2 * mul(multMatrix, v4).xyz;
 
         tOut += bw.weight2 * mul(multMatrix, t4).xyz;
-        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index2], bindPoseRotations[bw.index2])), bw.weight2);
-		if (dot(qOut, b) >= 0) qOut += b; else qOut -= b;
+        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[realIndex], bindPoseRotations[realIndex])), bw.weight2);
+        if (dot(qOut, b) >= 0)
+            qOut += b;
+        else
+            qOut -= b;
 
         nOut += bw.weight2 * mul(multMatrix, n4).xyz;
         tangOut += bw.weight2 * mul((float3x3) multMatrix, tang).xyz;
     }
-	if (bw.weight3 > 0) {
-        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[bw.index3], bindBuffer[bw.index3]));
+    if (bw.weight3 > 0)
+    {
+        realIndex = realIndices[bw.index3];
+        multMatrix = multiplyMatrix4x3(worldToLocalMatrix, multiplyMatrix4x3(boneBuffer[realIndex], bindBuffer[realIndex]));
         linearOut += bw.weight3 * mul(multMatrix, v4).xyz;
 
         tOut += bw.weight3 * mul(multMatrix, t4).xyz;
-        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[bw.index3], bindPoseRotations[bw.index3])), bw.weight3);
-		if (dot(qOut, b) >= 0) qOut += b; else qOut -= b;
+        b = mul(mulQxQ(inverseBaseRotation, mulQxQ(qBuffer[realIndex], bindPoseRotations[realIndex])), bw.weight3);
+        if (dot(qOut, b) >= 0)
+            qOut += b;
+        else
+            qOut -= b;
 
         nOut += bw.weight3 * mul(multMatrix, n4).xyz;
         tangOut += bw.weight3 * mul((float3x3) multMatrix, tang).xyz;
     }
 
-	qOut = normalize(qOut);
+    qOut = normalize(qOut);
 
-	float3 corOut = quatMul(qOut, v - tBuffer[t]) + tOut;
-	float blendedWeight = g_corWeight * corWeight[t];
-	verticesOutBuffer[t] = lerp(linearOut, corOut, blendedWeight);
-	normalsOutBuffer[t] = nOut;
-	tangentsOutBuffer[t] = float4(tangOut.xyz, tang.w);
+    float3 corOut = quatMul(qOut, v - tBuffer[t]) + tOut;
+    float blendedWeight = g_corWeight * corWeight[t];
+    verticesOutBuffer[t] = lerp(linearOut, corOut, blendedWeight);
+    normalsOutBuffer[t] = nOut;
+    tangentsOutBuffer[t] = float4(tangOut.xyz, tang.w);
 }
