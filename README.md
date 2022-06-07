@@ -10,3 +10,8 @@ I also plan to include shaders for all render pipelines. the current provided sh
 an extereme example of the built in LBS skinning vs CoR skinning:
 
 ![Screenshot_2](https://user-images.githubusercontent.com/59656122/166972562-49e7720e-475a-4907-9c80-040aa5fd7d56.png)
+
+
+![Screenshot_11](https://user-images.githubusercontent.com/59656122/172277137-ae1e7884-2ba3-4087-8b56-cf234f1aac80.png)
+
+![Screenshot_13](https://user-images.githubusercontent.com/59656122/172277140-678fe81a-ea06-4e67-99c3-431d4b1e22a0.png)
